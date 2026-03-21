@@ -429,13 +429,29 @@ body.curtain-locked {
   border-color: rgba(196, 40, 40, 0.3);
 }
 
+.inspo-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10, 5, 7, 0.85) 0%, rgba(10, 5, 7, 0.2) 50%, rgba(10, 5, 7, 0.1) 100%);
+  border-radius: 8px;
+  z-index: 1;
+}
+
+.inspo-item {
+  position: relative;
+}
+
 .inspo-item span {
+  position: relative;
+  z-index: 2;
   font-family: 'Cinzel', serif;
   font-size: 0.75rem;
   color: var(--gold-dim);
   text-align: center;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.8);
 }
 
 /* ─── Mystery ─── */
