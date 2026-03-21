@@ -16,7 +16,31 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
+}
+
+/* ─── Custom Scrollbar ─── */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #080406;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #4a0a0a, #8b1a1a, #4a0a0a);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #6b0f0f, #b52525, #6b0f0f);
+}
+
+/* Firefox scrollbar */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #6b0f0f #080406;
+}
 
 body {
   font-family: 'Cormorant Garamond', Georgia, serif;
@@ -113,6 +137,7 @@ body.locked { overflow: hidden; }
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   text-align: center; padding: 2rem;
+  scroll-snap-align: start;
 }
 .hero-bg {
   position: absolute; top: 0; left: 0; right: 0; bottom: 0;
@@ -175,6 +200,7 @@ body.locked { overflow: hidden; }
 .section {
   position: relative; z-index: 1;
   padding: 6rem 1.5rem;
+  scroll-snap-align: start;
 }
 .section-dark {
   background: var(--bg2);
@@ -463,6 +489,7 @@ strong { color: var(--red); font-weight: 600; }
   position: relative; z-index: 1;
   text-align: center; padding: 3rem 2rem;
   border-top: 1px solid rgba(139,26,26,0.08);
+  scroll-snap-align: end;
 }
 .footer-sigil {
   font-size: 1.5rem; color: var(--crimson);
