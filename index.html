@@ -10,10 +10,9 @@
 </head>
 <body>
 
-  <!-- ═══ CURTAIN ENTRANCE ═══ -->
+  <!-- ═══ CURTAIN ENTRANCE (Three.js) ═══ -->
   <div class="curtain-overlay" id="curtain">
-    <div class="curtain-left"></div>
-    <div class="curtain-right"></div>
+    <canvas id="curtain-canvas"></canvas>
     <div class="curtain-content">
       <div class="curtain-sigil">⸸</div>
       <h1 class="curtain-title">The Dark Masquerade</h1>
@@ -301,6 +300,8 @@
 
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="curtain.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

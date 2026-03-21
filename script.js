@@ -2,18 +2,8 @@
 // THE DARK MASQUERADE — v2
 // ═══════════════════════════════════════
 
-// ─── Curtain ───
+// Curtain is handled by curtain.js (Three.js)
 document.body.classList.add('locked');
-function openCurtain() {
-  const c = document.getElementById('curtain');
-  if (c.classList.contains('open')) return;
-  c.classList.add('open');
-  document.body.classList.remove('locked');
-  setTimeout(() => c.classList.add('gone'), 2500);
-}
-document.getElementById('enter-btn').addEventListener('click', openCurtain);
-document.getElementById('enter-btn').addEventListener('touchend', function(e) { e.preventDefault(); openCurtain(); });
-document.getElementById('curtain').addEventListener('click', openCurtain);
 
 // ─── Particles ───
 (function() {
