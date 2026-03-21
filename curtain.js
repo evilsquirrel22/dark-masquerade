@@ -26,18 +26,18 @@
   // ─── Base Lighting ───
   scene.add(new THREE.AmbientLight(0x1a0808, 0.3));
 
-  const topSpot = new THREE.SpotLight(0xffaa80, 3, 20, Math.PI / 4, 0.4, 1);
+  const topSpot = new THREE.SpotLight(0xffaa80, 2.2, 20, Math.PI / 4, 0.4, 1);
   topSpot.position.set(0, 6, 5);
   topSpot.target.position.set(0, -2, 0);
   topSpot.castShadow = true;
   scene.add(topSpot);
   scene.add(topSpot.target);
 
-  const sideL = new THREE.DirectionalLight(0xcc4422, 0.8);
+  const sideL = new THREE.DirectionalLight(0xcc4422, 0.5);
   sideL.position.set(-5, 2, 3);
   scene.add(sideL);
 
-  const sideR = new THREE.DirectionalLight(0xcc4422, 0.8);
+  const sideR = new THREE.DirectionalLight(0xcc4422, 0.5);
   sideR.position.set(5, 2, 3);
   scene.add(sideR);
 
@@ -307,7 +307,7 @@
         originals[i * 3 + 1] = y;
         originals[i * 3 + 2] = z;
 
-        uv.setXY(i, nx * 2.5, ny * 3);
+        uv.setXY(i, nx * 3, ny * 1);
       }
 
       geo.computeVertexNormals();
@@ -317,9 +317,9 @@
         roughness: 0.65,
         metalness: 0.08,
         side: THREE.FrontSide,
-        color: 0xbb2020,
+        color: 0x6b1515,
         bumpMap: curtainTex,
-        bumpScale: 0.03,
+        bumpScale: 0.02,
       });
 
       const mesh = new THREE.Mesh(geo, mat);
@@ -399,7 +399,7 @@
     });
 
     // Light flicker
-    topSpot.intensity = 3 + Math.sin(time * 1.5) * 0.4 + Math.sin(time * 5.1) * 0.15;
+    topSpot.intensity = 2.2 + Math.sin(time * 1.5) * 0.3 + Math.sin(time * 5.1) * 0.1;
 
     // Flame flicker (even after fully lit)
     flameOrbs.forEach((orb, i) => {
