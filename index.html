@@ -5,285 +5,301 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Dark Masquerade — Halloween 2027</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Curtain entrance -->
-  <div class="curtain-overlay" id="curtain-overlay">
-    <div class="curtain curtain-left"></div>
-    <div class="curtain curtain-right"></div>
-    <div class="curtain-prompt" id="curtain-prompt">
-      <div class="curtain-mask">🎭</div>
-      <p class="curtain-text">Enter the Masquerade</p>
-      <small class="curtain-hint">click to enter</small>
+
+  <!-- ═══ CURTAIN ENTRANCE ═══ -->
+  <div class="curtain-overlay" id="curtain">
+    <div class="curtain-left"></div>
+    <div class="curtain-right"></div>
+    <div class="curtain-content">
+      <div class="curtain-sigil">⸸</div>
+      <h1 class="curtain-title">The Dark Masquerade</h1>
+      <p class="curtain-sub">You have been summoned</p>
+      <button class="curtain-btn" id="enter-btn">Enter</button>
     </div>
   </div>
 
-  <!-- Fog overlay -->
-  <div class="fog-container" aria-hidden="true">
-    <div class="fog fog-1"></div>
-    <div class="fog fog-2"></div>
+  <!-- ═══ MAIN SITE ═══ -->
+  <div class="site" id="site">
+
+    <!-- Ambient particles -->
+    <canvas class="particles" id="particles"></canvas>
+
+    <!-- ─── HERO ─── -->
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-inner">
+        <p class="hero-pre">A Murder Mystery Halloween</p>
+        <h1 class="hero-title">The Dark<br>Masquerade</h1>
+        <div class="hero-line"></div>
+        <p class="hero-date">October 31, 2027 · Omaha, NE</p>
+        <div class="countdown" id="countdown">
+          <div class="cd"><span id="cd-d">---</span><small>Days</small></div>
+          <div class="cd"><span id="cd-h">--</span><small>Hours</small></div>
+          <div class="cd"><span id="cd-m">--</span><small>Min</small></div>
+          <div class="cd"><span id="cd-s">--</span><small>Sec</small></div>
+        </div>
+      </div>
+      <a href="#about" class="scroll-arrow">↓</a>
+    </section>
+
+    <!-- ─── ABOUT ─── -->
+    <section class="section" id="about">
+      <div class="container narrow">
+        <h2 class="heading">The Evening Awaits</h2>
+        <div class="sep">⸸</div>
+        <p class="body-lg">You are cordially summoned to an evening of crimson and shadow.</p>
+        <p>Behind ornate masks and red velvet curtains, the ancient ones gather for a feast — course by course, secret by secret, blood by blood. But even among the immortal, trust is a luxury.</p>
+        <p>Before the final glass is drained, <strong>one among you will fall</strong>. The rest must unravel the web of lies — or let the killer disappear into the fog.</p>
+        <div class="tagline">Dine · Deceive · Devour · Discover</div>
+      </div>
+    </section>
+
+    <!-- ─── THE HOUSES ─── -->
+    <section class="section section-dark" id="houses">
+      <div class="container">
+        <h2 class="heading">The Five Houses</h2>
+        <div class="sep">🗡</div>
+        <p class="center-text">Five ancient bloodlines. Five sets of motives. One killer among them.</p>
+        <div class="houses-grid">
+          <div class="house-card" data-house="strigoi">
+            <div class="house-icon">🦇</div>
+            <h3>House Strigoi</h3>
+            <p class="house-origin">Romania · The Old Blood</p>
+            <p>Tradition. Hierarchy. Power by birthright. The closest to Vasilis — and the first suspected.</p>
+          </div>
+          <div class="house-card" data-house="obayifo">
+            <div class="house-icon">🌑</div>
+            <h3>House Obayifo</h3>
+            <p class="house-origin">Ghana · The Hidden Hand</p>
+            <p>Secrets are currency. Information is power. They know who did it — for the right price.</p>
+          </div>
+          <div class="house-card" data-house="camazotz">
+            <div class="house-icon">🦅</div>
+            <h3>House Camazotz</h3>
+            <p class="house-origin">Mayan · The Sacred Fang</p>
+            <p>The blood rites are sacred. Duty is eternal. Was Vasilis's death a murder — or a sacrifice?</p>
+          </div>
+          <div class="house-card" data-house="jiang">
+            <div class="house-icon">🌙</div>
+            <h3>House Jiang</h3>
+            <p class="house-origin">China · The Unbound</p>
+            <p>Artists. Visionaries. Rule-breakers. Vasilis silenced their greatest work. Now he's silent.</p>
+          </div>
+          <div class="house-card" data-house="vetala">
+            <div class="house-icon">❄️</div>
+            <h3>House Vetala</h3>
+            <p class="house-origin">India · The Unravelers</p>
+            <p>There are no limits — only those we haven't broken yet. Their experiments terrify even vampires.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── THE MYSTERY ─── -->
+    <section class="section" id="mystery">
+      <div class="container narrow">
+        <div class="mystery-block">
+          <div class="mystery-quote">"One of you will fall.<br>The rest must uncover the truth."</div>
+          <div class="mystery-sep">☠</div>
+          <p>Upon arrival, each guest will receive a sealed envelope containing their character, their secrets, and their motives.</p>
+          <p>As the evening unfolds and courses are served, clues will surface, alliances will shift, and accusations will fly.</p>
+          <p class="highlight">Trust no one — especially those who smile behind their masks.</p>
+          <p class="small-note">Your character will be revealed after you RSVP.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── ATTIRE ─── -->
+    <section class="section section-dark" id="attire">
+      <div class="container">
+        <h2 class="heading">Attire</h2>
+        <div class="sep">🗡</div>
+        <p class="center-text">This is a vampire's ball. Dress like the undead aristocracy you were always meant to be.</p>
+        <div class="attire-row">
+          <div class="attire-card">
+            <h4>The Look</h4>
+            <p>Red velvet & black lace. Corsets & capes. Vampire nobility. Dracula's court. Dark aristocracy.</p>
+          </div>
+          <div class="attire-card">
+            <h4>The Palette</h4>
+            <p>Black. Blood red. Deep crimson. Burgundy. Silver accents. Midnight.</p>
+          </div>
+          <div class="attire-card accent-card">
+            <h4>The Mask</h4>
+            <p>Venetian. Ornate. Feathered. Fanged. <strong>Masks are required.</strong> Your mask is your invitation to the coven.</p>
+          </div>
+        </div>
+        <div class="inspo-gallery">
+          <div class="inspo" style="background-image:url('img/mask.jpg')"></div>
+          <div class="inspo" style="background-image:url('img/curtain.jpg')"></div>
+          <div class="inspo" style="background-image:url('img/vampire.jpg')"></div>
+          <div class="inspo" style="background-image:url('img/darkfloral.jpg')"></div>
+          <div class="inspo" style="background-image:url('img/lace.jpg')"></div>
+          <div class="inspo" style="background-image:url('img/cape.jpg')"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── DETAILS ─── -->
+    <section class="section" id="details">
+      <div class="container narrow">
+        <h2 class="heading">Details</h2>
+        <div class="sep">🕯</div>
+        <div class="details-list">
+          <div class="detail-row">
+            <span class="detail-label">Date</span>
+            <span class="detail-value">Friday, October 31, 2027</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Doors Open</span>
+            <span class="detail-value">7:00 PM</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Dinner</span>
+            <span class="detail-value">8:00 PM</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Location</span>
+            <span class="detail-value">To be announced · Omaha, NE</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Dress Code</span>
+            <span class="detail-value">Dark Masquerade · Masks Required</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Guests</span>
+            <span class="detail-value">20–25 invited</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── RSVP ─── -->
+    <section class="section section-dark" id="rsvp">
+      <div class="container narrow">
+        <h2 class="heading">RSVP</h2>
+        <div class="sep">✉</div>
+        <p class="center-text">Accept your invitation to the coven. Your immortal identity awaits.</p>
+
+        <form class="form" id="rsvp-form">
+          <!-- Step 1 -->
+          <div id="step-info">
+            <div class="field">
+              <label>Full Name</label>
+              <input type="text" id="f-name" required placeholder="Your mortal name">
+            </div>
+            <div class="field">
+              <label>Email</label>
+              <input type="email" id="f-email" required placeholder="For your character reveal">
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label>Guests</label>
+                <select id="f-guests">
+                  <option value="1">Just myself</option>
+                  <option value="2">Myself + 1</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Plus One Name</label>
+                <input type="text" id="f-plusone" placeholder="If bringing a guest">
+              </div>
+            </div>
+            <div class="field">
+              <label>Dietary Restrictions</label>
+              <textarea id="f-dietary" rows="2" placeholder="Allergies, vegetarian, vegan, etc."></textarea>
+            </div>
+            <button type="button" class="btn" id="btn-quiz">Continue to the Sorting</button>
+          </div>
+
+          <!-- Step 2: Quiz -->
+          <div id="step-quiz" hidden>
+            <p class="quiz-intro">Every vampire belongs to a House. Answer truthfully — the blood knows its own.</p>
+
+            <div class="q-block">
+              <p class="q-text">At a masquerade, you are most likely to...</p>
+              <label class="q-opt"><input type="radio" name="q1" value="strigoi"> Command the room from the head of the table</label>
+              <label class="q-opt"><input type="radio" name="q1" value="obayifo"> Linger in corners, listening to every whispered secret</label>
+              <label class="q-opt"><input type="radio" name="q1" value="camazotz"> Guard the entrance — and decide who's worthy</label>
+              <label class="q-opt"><input type="radio" name="q1" value="jiang"> Slip away to explore the forbidden library</label>
+              <label class="q-opt"><input type="radio" name="q1" value="vetala"> Find the host's private study and read their research</label>
+            </div>
+
+            <div class="q-block">
+              <p class="q-text">An ally betrays you. Your first instinct:</p>
+              <label class="q-opt"><input type="radio" name="q2" value="strigoi"> Publicly destroy their reputation</label>
+              <label class="q-opt"><input type="radio" name="q2" value="obayifo"> Say nothing. File it away. Use it later</label>
+              <label class="q-opt"><input type="radio" name="q2" value="camazotz"> Confront them directly — honor demands it</label>
+              <label class="q-opt"><input type="radio" name="q2" value="jiang"> Try to understand why</label>
+              <label class="q-opt"><input type="radio" name="q2" value="vetala"> Study the betrayal — what can be learned?</label>
+            </div>
+
+            <div class="q-block">
+              <p class="q-text">Immortality is...</p>
+              <label class="q-opt"><input type="radio" name="q3" value="strigoi"> A birthright. A crown to be worn with pride</label>
+              <label class="q-opt"><input type="radio" name="q3" value="obayifo"> The ultimate advantage. Infinite time to build power</label>
+              <label class="q-opt"><input type="radio" name="q3" value="camazotz"> A sacred duty. A gift that demands purpose</label>
+              <label class="q-opt"><input type="radio" name="q3" value="jiang"> A canvas. Infinite time to create and experience</label>
+              <label class="q-opt"><input type="radio" name="q3" value="vetala"> A starting point. There are heights beyond even this</label>
+            </div>
+
+            <div class="q-block">
+              <p class="q-text">You value most in others:</p>
+              <label class="q-opt"><input type="radio" name="q4" value="strigoi"> Loyalty and respect for tradition</label>
+              <label class="q-opt"><input type="radio" name="q4" value="obayifo"> Usefulness and discretion</label>
+              <label class="q-opt"><input type="radio" name="q4" value="camazotz"> Courage and conviction</label>
+              <label class="q-opt"><input type="radio" name="q4" value="jiang"> Creativity and open-mindedness</label>
+              <label class="q-opt"><input type="radio" name="q4" value="vetala"> Intelligence and ambition</label>
+            </div>
+
+            <div class="q-block">
+              <p class="q-text">A dangerous secret falls into your lap. You...</p>
+              <label class="q-opt"><input type="radio" name="q5" value="strigoi"> Use it to strengthen your position</label>
+              <label class="q-opt"><input type="radio" name="q5" value="obayifo"> Hold it. Secrets are currency</label>
+              <label class="q-opt"><input type="radio" name="q5" value="camazotz"> Bring it to your leader</label>
+              <label class="q-opt"><input type="radio" name="q5" value="jiang"> Share it. Secrets are poison</label>
+              <label class="q-opt"><input type="radio" name="q5" value="vetala"> Study it completely before deciding</label>
+            </div>
+
+            <div class="q-block">
+              <p class="q-text">Your ideal night:</p>
+              <label class="q-opt"><input type="radio" name="q6" value="strigoi"> Formal dinner with powerful company</label>
+              <label class="q-opt"><input type="radio" name="q6" value="obayifo"> A quiet meeting where alliances are formed</label>
+              <label class="q-opt"><input type="radio" name="q6" value="camazotz"> Bonfire under stars with those you'd die for</label>
+              <label class="q-opt"><input type="radio" name="q6" value="jiang"> Gallery opening, late-night conversation</label>
+              <label class="q-opt"><input type="radio" name="q6" value="vetala"> Alone in a lab, on the verge of a breakthrough</label>
+            </div>
+
+            <button type="submit" class="btn">Reveal My Blood</button>
+          </div>
+        </form>
+
+        <!-- Result -->
+        <div id="result" hidden>
+          <div class="result-card">
+            <div class="result-icon" id="r-icon">🎭</div>
+            <h3 class="result-title">The blood speaks:</h3>
+            <h2 class="result-house" id="r-house"></h2>
+            <p class="result-desc" id="r-desc"></p>
+            <div class="result-bars" id="r-bars"></div>
+            <p class="result-note">Watch your inbox — your character arrives two weeks before the masquerade.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── FOOTER ─── -->
+    <footer class="footer">
+      <div class="footer-sigil">⸸</div>
+      <p>The Dark Masquerade · Halloween 2027 · Omaha, NE</p>
+      <p class="footer-sub">The Night is Eternal</p>
+    </footer>
+
   </div>
-
-  <!-- Navigation -->
-  <nav class="nav">
-    <a href="#about">The Evening</a>
-    <a href="#dresscode">Attire</a>
-    <a href="#mystery">The Mystery</a>
-    <a href="#details">Details</a>
-    <a href="#rsvp">RSVP</a>
-  </nav>
-
-  <!-- Hero -->
-  <header class="hero" id="hero">
-    <div class="hero-content">
-      <div class="mask-icon" aria-hidden="true">🎭</div>
-      <h1 class="hero-title">The Dark Masquerade</h1>
-      <p class="hero-subtitle">A Murder Mystery Halloween</p>
-      <div class="hero-date">October 31, 2027</div>
-      <div class="countdown" id="countdown">
-        <div class="countdown-item"><span id="days">---</span><small>Days</small></div>
-        <div class="countdown-item"><span id="hours">--</span><small>Hours</small></div>
-        <div class="countdown-item"><span id="minutes">--</span><small>Minutes</small></div>
-        <div class="countdown-item"><span id="seconds">--</span><small>Seconds</small></div>
-      </div>
-    </div>
-    <div class="scroll-hint" aria-hidden="true">↓</div>
-  </header>
-
-  <!-- About -->
-  <section class="section" id="about">
-    <div class="container">
-      <h2 class="section-title">The Evening Awaits</h2>
-      <div class="divider">⸸</div>
-      <p class="section-text">
-        You are cordially summoned to an evening of crimson and shadow. Behind ornate masks and red velvet curtains, the ancient ones gather for a feast — course by course, secret by secret, blood by blood.
-      </p>
-      <p class="section-text">
-        But even among the immortal, trust is a luxury. Before the final glass is drained, one among you will fall. The rest must unravel the web of lies — or let the killer disappear into the fog.
-      </p>
-      <p class="section-text accent">
-        Dine. Deceive. Devour. Discover.
-      </p>
-    </div>
-  </section>
-
-  <!-- Dress Code & Inspo -->
-  <section class="section section-dark" id="dresscode">
-    <div class="container">
-      <h2 class="section-title">Attire & Inspiration</h2>
-      <div class="divider">🗡</div>
-      <p class="section-text">
-        This is a vampire's ball. Dress like the undead aristocracy you were always meant to be — masquerade masks are <strong>required</strong>.
-      </p>
-      <div class="dresscode-grid">
-        <div class="dresscode-card">
-          <h3>Think</h3>
-          <p>Red velvet & black lace. Corsets & capes. Vampire nobility. Dark aristocracy. Dracula's court.</p>
-        </div>
-        <div class="dresscode-card">
-          <h3>Colors</h3>
-          <p>Black. Blood red. Deep crimson. Burgundy. Silver accents. Midnight.</p>
-        </div>
-        <div class="dresscode-card">
-          <h3>Masks</h3>
-          <p>Venetian, ornate, feathered, fanged — the more dramatic, the better. Your mask is your invitation to the coven.</p>
-        </div>
-      </div>
-      <div class="inspo-grid">
-        <div class="inspo-item" style="background: url('img/mask.jpg') center/cover;">
-          <span>Venetian Blood Masks</span>
-        </div>
-        <div class="inspo-item" style="background: url('img/curtain.jpg') center/cover;">
-          <span>Red Velvet Curtains</span>
-        </div>
-        <div class="inspo-item" style="background: url('img/vampire.jpg') center/cover;">
-          <span>Vampire Elegance</span>
-        </div>
-        <div class="inspo-item" style="background: url('img/darkfloral.jpg') center/cover;">
-          <span>Crimson & Black</span>
-        </div>
-        <div class="inspo-item" style="background: url('img/lace.jpg') center/cover;">
-          <span>Dark Lace & Fangs</span>
-        </div>
-        <div class="inspo-item" style="background: url('img/cape.jpg') center/cover;">
-          <span>Gothic Capes</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- The Mystery -->
-  <section class="section" id="mystery">
-    <div class="container">
-      <h2 class="section-title">The Mystery</h2>
-      <div class="divider">☠</div>
-      <div class="mystery-card">
-        <p class="mystery-quote">"One of you will fall.<br>The rest must uncover the truth."</p>
-        <p class="section-text">
-          Upon arrival, each guest will receive a sealed envelope containing their character, their secrets, and their motives. Guard them closely.
-        </p>
-        <p class="section-text">
-          As the evening unfolds and courses are served, clues will surface, alliances will shift, and accusations will fly. Trust no one — especially not those who smile behind their masks.
-        </p>
-        <p class="section-text accent">
-          Your character will be revealed after you RSVP.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Details -->
-  <section class="section section-dark" id="details">
-    <div class="container">
-      <h2 class="section-title">Details</h2>
-      <div class="divider">🕯</div>
-      <div class="details-grid">
-        <div class="detail-card">
-          <div class="detail-icon">📅</div>
-          <h3>Date</h3>
-          <p>Friday, October 31, 2027</p>
-        </div>
-        <div class="detail-card">
-          <div class="detail-icon">🕖</div>
-          <h3>Time</h3>
-          <p>Doors open at 7:00 PM<br><small>Dinner served at 8:00 PM</small></p>
-        </div>
-        <div class="detail-card">
-          <div class="detail-icon">📍</div>
-          <h3>Location</h3>
-          <p>To be announced<br><small>Omaha, Nebraska</small></p>
-        </div>
-        <div class="detail-card">
-          <div class="detail-icon">🎭</div>
-          <h3>Dress Code</h3>
-          <p>Dark Masquerade<br><small>Masks required</small></p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- RSVP -->
-  <section class="section" id="rsvp">
-    <div class="container">
-      <h2 class="section-title">RSVP</h2>
-      <div class="divider">✉</div>
-      <p class="section-text">Accept your invitation to the coven. Your immortal identity awaits.</p>
-      <form class="rsvp-form" id="rsvp-form">
-        <!-- Step 1: Info -->
-        <div class="form-step" id="step-info">
-          <div class="form-group">
-            <label for="name">Full Name</label>
-            <input type="text" id="name" name="name" required placeholder="Your mortal name">
-          </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required placeholder="For your character reveal">
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="guests">Number of Guests</label>
-              <select id="guests" name="guests">
-                <option value="1">Just myself</option>
-                <option value="2">Myself + 1</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="plusone">Plus One Name</label>
-              <input type="text" id="plusone" name="plusone" placeholder="If bringing a guest">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="dietary">Dietary Restrictions</label>
-            <textarea id="dietary" name="dietary" rows="2" placeholder="Allergies, vegetarian, vegan, etc."></textarea>
-          </div>
-          <button type="button" class="btn-submit" id="btn-to-quiz">
-            <span>Continue to the Sorting</span>
-          </button>
-        </div>
-
-        <!-- Step 2: Sorting Quiz -->
-        <div class="form-step" id="step-quiz" hidden>
-          <div class="quiz-intro">
-            <p class="section-text">Every vampire belongs to a House. Answer truthfully — the blood knows its own.</p>
-          </div>
-
-          <div class="quiz-question" data-q="1">
-            <p class="quiz-q">At a masquerade, you are most likely to...</p>
-            <label class="quiz-option"><input type="radio" name="q1" value="strigoi"> Command the room from the head of the table</label>
-            <label class="quiz-option"><input type="radio" name="q1" value="obayifo"> Linger in corners, listening to every whispered secret</label>
-            <label class="quiz-option"><input type="radio" name="q1" value="camazotz"> Guard the entrance — and decide who's worthy to enter</label>
-            <label class="quiz-option"><input type="radio" name="q1" value="jiang"> Slip away to explore the forbidden library upstairs</label>
-            <label class="quiz-option"><input type="radio" name="q1" value="vetala"> Find the host's private study and read their research notes</label>
-          </div>
-
-          <div class="quiz-question" data-q="2">
-            <p class="quiz-q">An ally betrays you. Your first instinct is to...</p>
-            <label class="quiz-option"><input type="radio" name="q2" value="strigoi"> Publicly destroy their reputation — make an example</label>
-            <label class="quiz-option"><input type="radio" name="q2" value="obayifo"> Say nothing. File it away. Use it when the time is right</label>
-            <label class="quiz-option"><input type="radio" name="q2" value="camazotz"> Confront them directly — honor demands it</label>
-            <label class="quiz-option"><input type="radio" name="q2" value="jiang"> Try to understand why — there's always a bigger picture</label>
-            <label class="quiz-option"><input type="radio" name="q2" value="vetala"> Study the betrayal itself — what can be learned from it?</label>
-          </div>
-
-          <div class="quiz-question" data-q="3">
-            <p class="quiz-q">Immortality is...</p>
-            <label class="quiz-option"><input type="radio" name="q3" value="strigoi"> A birthright. A crown to be worn with pride</label>
-            <label class="quiz-option"><input type="radio" name="q3" value="obayifo"> The ultimate advantage. Infinite time to build power</label>
-            <label class="quiz-option"><input type="radio" name="q3" value="camazotz"> A sacred duty. A gift that demands purpose</label>
-            <label class="quiz-option"><input type="radio" name="q3" value="jiang"> A canvas. Infinite time to create and experience everything</label>
-            <label class="quiz-option"><input type="radio" name="q3" value="vetala"> A starting point. There are heights beyond even this</label>
-          </div>
-
-          <div class="quiz-question" data-q="4">
-            <p class="quiz-q">The thing you value most in others is...</p>
-            <label class="quiz-option"><input type="radio" name="q4" value="strigoi"> Loyalty and respect for tradition</label>
-            <label class="quiz-option"><input type="radio" name="q4" value="obayifo"> Usefulness and discretion</label>
-            <label class="quiz-option"><input type="radio" name="q4" value="camazotz"> Courage and conviction</label>
-            <label class="quiz-option"><input type="radio" name="q4" value="jiang"> Creativity and open-mindedness</label>
-            <label class="quiz-option"><input type="radio" name="q4" value="vetala"> Intelligence and ambition</label>
-          </div>
-
-          <div class="quiz-question" data-q="5">
-            <p class="quiz-q">A dangerous secret falls into your lap. You...</p>
-            <label class="quiz-option"><input type="radio" name="q5" value="strigoi"> Use it to strengthen your position and protect your people</label>
-            <label class="quiz-option"><input type="radio" name="q5" value="obayifo"> Hold it. Secrets are currency — spend wisely</label>
-            <label class="quiz-option"><input type="radio" name="q5" value="camazotz"> Bring it to your leader. The group decides, not you alone</label>
-            <label class="quiz-option"><input type="radio" name="q5" value="jiang"> Share it. Secrets are poison — truth sets you free</label>
-            <label class="quiz-option"><input type="radio" name="q5" value="vetala"> Study it. Understand it completely before deciding anything</label>
-          </div>
-
-          <div class="quiz-question" data-q="6">
-            <p class="quiz-q">Your ideal night looks like...</p>
-            <label class="quiz-option"><input type="radio" name="q6" value="strigoi"> A formal dinner with powerful company and excellent wine</label>
-            <label class="quiz-option"><input type="radio" name="q6" value="obayifo"> A quiet meeting where alliances are formed and debts called in</label>
-            <label class="quiz-option"><input type="radio" name="q6" value="camazotz"> A bonfire under the stars, surrounded by those you'd die for</label>
-            <label class="quiz-option"><input type="radio" name="q6" value="jiang"> A gallery opening, a late-night conversation, a new experience</label>
-            <label class="quiz-option"><input type="radio" name="q6" value="vetala"> Alone in a lab or library, on the verge of a breakthrough</label>
-          </div>
-
-          <button type="submit" class="btn-submit" id="btn-submit-rsvp">
-            <span>Reveal My Blood</span>
-          </button>
-        </div>
-      </form>
-
-      <!-- Results -->
-      <div class="rsvp-success" id="rsvp-success" hidden>
-        <div class="success-icon" id="result-icon">🎭</div>
-        <h3 id="result-house">Your fate is sealed.</h3>
-        <p id="result-desc">Watch your inbox — your character will arrive two weeks before the masquerade.</p>
-        <div class="house-results" id="house-results"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <p>🎭 The Dark Masquerade · Halloween 2027 · Omaha, NE</p>
-    <p class="footer-small">The Night is Eternal</p>
-  </footer>
 
   <script src="script.js"></script>
 </body>
