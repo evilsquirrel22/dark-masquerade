@@ -103,6 +103,9 @@ body {
 
 body.locked { overflow: hidden; }
 
+/* Site starts hidden, fades in during curtain reveal */
+#site { opacity: 0; transition: opacity 0.3s ease; }
+
 @keyframes pulse {
   0%, 100% { opacity: 0.4; transform: scale(1); }
   50% { opacity: 0.8; transform: scale(1.05); }
