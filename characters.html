@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Crimson Wake — Character Dossiers</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    @page { size: letter; margin: 0; }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      background: #1a1a1a;
+      color: #d4cdc0;
+    }
+
+    /* Each character = one printed page */
+    .dossier {
+      width: 8.5in;
+      min-height: 11in;
+      margin: 0 auto 2rem;
+      padding: 0.6in 0.75in;
+      position: relative;
+      overflow: hidden;
+      page-break-after: always;
+      display: flex;
+      flex-direction: column;
+    }
+
+    @media print {
+      body { background: white; }
+      .dossier { margin: 0; min-height: 100vh; }
+      .no-print { display: none !important; }
+    }
+
+    /* House color themes */
+    .house-strigoi { background: linear-gradient(170deg, #0a0507 0%, #1a0a10 40%, #0d0507 100%); --accent: #8b1a1a; --accent-light: #c42828; --accent-glow: rgba(139, 26, 26, 0.3); --icon: '🦇'; }
+    .house-obayifo { background: linear-gradient(170deg, #07070a 0%, #0a0d1a 40%, #05070a 100%); --accent: #4a4a8b; --accent-light: #7070c4; --accent-glow: rgba(74, 74, 139, 0.3); --icon: '🌑'; }
+    .house-camazotz { background: linear-gradient(170deg, #0a0a05 0%, #1a1a0a 40%, #0a0a05 100%); --accent: #8b6b1a; --accent-light: #c49828; --accent-glow: rgba(139, 107, 26, 0.3); --icon: '🦅'; }
+    .house-jiang { background: linear-gradient(170deg, #050a0a 0%, #0a1a1a 40%, #050a0a 100%); --accent: #1a7a7a; --accent-light: #28b4b4; --accent-glow: rgba(26, 122, 122, 0.3); --icon: '🌙'; }
+    .house-vetala { background: linear-gradient(170deg, #0a050a 0%, #150a1a 40%, #0a050a 100%); --accent: #6b1a8b; --accent-light: #9828c4; --accent-glow: rgba(107, 26, 139, 0.3); --icon: '❄️'; }
+
+    /* Border frame */
+    .dossier::before {
+      content: '';
+      position: absolute;
+      top: 0.4in;
+      left: 0.5in;
+      right: 0.5in;
+      bottom: 0.4in;
+      border: 1px solid var(--accent);
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    .dossier::after {
+      content: '';
+      position: absolute;
+      top: 0.45in;
+      left: 0.55in;
+      right: 0.55in;
+      bottom: 0.45in;
+      border: 1px solid var(--accent);
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    /* Corner flourishes */
+    .corner { position: absolute; font-size: 1.2rem; color: var(--accent); opacity: 0.4; }
+    .corner-tl { top: 0.35in; left: 0.45in; }
+    .corner-tr { top: 0.35in; right: 0.45in; }
+    .corner-bl { bottom: 0.35in; left: 0.45in; }
+    .corner-br { bottom: 0.35in; right: 0.45in; }
+
+    /* Header */
+    .dossier-header {
+      text-align: center;
+      margin-bottom: 0.3in;
+    }
+
+    .house-icon {
+      font-size: 2.2rem;
+      margin-bottom: 0.1in;
+      filter: drop-shadow(0 0 15px var(--accent-glow));
+    }
+
+    .house-name {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      opacity: 0.8;
+    }
+
+    .house-motto {
+      font-style: italic;
+      font-size: 0.75rem;
+      color: #8a7272;
+      margin-top: 0.05in;
+    }
+
+    .char-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.6rem;
+      color: var(--accent-light);
+      margin-top: 0.15in;
+      text-shadow: 0 0 20px var(--accent-glow);
+      letter-spacing: 0.05em;
+    }
+
+    .char-names {
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      color: #8a7272;
+      margin-top: 0.08in;
+      letter-spacing: 0.1em;
+    }
+
+    .char-rank {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-top: 0.06in;
+      opacity: 0.7;
+    }
+
+    /* Dividers */
+    .divider {
+      text-align: center;
+      color: var(--accent);
+      opacity: 0.4;
+      font-size: 0.9rem;
+      margin: 0.15in 0;
+      letter-spacing: 0.5em;
+    }
+
+    /* Sections */
+    .section-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-bottom: 0.06in;
+      opacity: 0.8;
+    }
+
+    .backstory {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: #c0b8ad;
+      margin-bottom: 0.2in;
+      text-align: justify;
+    }
+
+    /* Secrets */
+    .secrets-box {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--accent);
+      border-left: 3px solid var(--accent);
+      padding: 0.15in 0.2in;
+      margin-bottom: 0.2in;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .secrets-box .section-label {
+      color: var(--accent-light);
+      margin-bottom: 0.08in;
+    }
+
+    .secret-item {
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: #c0b8ad;
+      margin-bottom: 0.06in;
+      padding-left: 0.15in;
+      border-left: 1px solid var(--accent);
+      margin-left: 0;
+      opacity: 0.9;
+    }
+
+    /* Relationships */
+    .relationship {
+      font-size: 0.78rem;
+      line-height: 1.5;
+      color: #a09890;
+      margin-bottom: 0.05in;
+      padding-left: 0.1in;
+    }
+
+    .relationship strong {
+      color: var(--accent-light);
+      font-weight: 600;
+    }
+
+    /* Costume */
+    .costume-box {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px dashed var(--accent);
+      padding: 0.12in 0.18in;
+      margin-top: 0.15in;
+      border-radius: 4px;
+      opacity: 0.85;
+    }
+
+    .costume-box p {
+      font-size: 0.78rem;
+      line-height: 1.5;
+      color: #a09890;
+      font-style: italic;
+    }
+
+    /* Footer */
+    .dossier-footer {
+      margin-top: auto;
+      text-align: center;
+      padding-top: 0.15in;
+    }
+
+    .dossier-footer p {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      opacity: 0.3;
+    }
+
+    /* Seal watermark */
+    .seal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 12rem;
+      opacity: 0.03;
+      pointer-events: none;
+      color: var(--accent-light);
+    }
+
+    /* Print controls */
+    .controls {
+      text-align: center;
+      padding: 2rem;
+      font-family: 'Cinzel', serif;
+    }
+
+    .controls h1 {
+      color: #c42828;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .controls p {
+      color: #8a7272;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .controls button {
+      background: linear-gradient(135deg, #5a1a1a, #8b1a1a);
+      color: #d4cdc0;
+      border: 1px solid #8b1a1a;
+      padding: 0.8rem 2rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      border-radius: 4px;
+      margin: 0.5rem;
+    }
+
+    .controls button:hover {
+      background: linear-gradient(135deg, #8b1a1a, #c42828);
+    }
+
+    .controls select {
+      background: #1a1a1a;
+      color: #d4cdc0;
+      border: 1px solid #8b1a1a;
+      padding: 0.5rem 1rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      border-radius: 4px;
+      margin: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+<div class="controls no-print">
+  <h1>🎭 Character Dossiers</h1>
+  <p>Print individual characters or all at once. Each character prints on one page.</p>
+  <p>
+    <select id="filter">
+      <option value="all">All Characters (25)</option>
+      <option value="strigoi">🦇 House Strigoi (5)</option>
+      <option value="obayifo">🌑 House Obayifo (5)</option>
+      <option value="camazotz">🦅 House Camazotz (5)</option>
+      <option value="jiang">🌙 House Jiang (5)</option>
+      <option value="vetala">❄️ House Vetala (5)</option>
+    </select>
+    <button onclick="filterHouse()">Filter</button>
+    <button onclick="window.print()">🖨️ Print</button>
+  </p>
+</div>
+
+<!-- S1 -->
+<div class="dossier house-strigoi" data-house="strigoi">
+  <div class="seal">🦇</div>
+  <span class="corner corner-tl">⸸</span><span class="corner corner-tr">⸸</span>
+  <span class="corner corner-bl">⸸</span><span class="corner corner-br">⸸</span>
+  <div class="dossier-header">
+    <div class="house-icon">🦇</div>
+    <div class="house-name">House Strigoi — The Old Blood</div>
+    <div class="house-motto">"Blood remembers what the mind forgets."</div>
+    <div class="char-title">The Heir Apparent</div>
+    <div class="char-names">Choose your name: Dominique · Caius · or your own</div>
+    <div class="char-rank">First Fang of House Strigoi</div>
+  </div>
+  <div class="divider">· · ⸸ · ·</div>
+  <div class="section-label">Your Story</div>
+  <p class="backstory">Vasilis's chosen successor — or so you believed. Turned 300 years ago, you have spent centuries preparing to lead House Strigoi. Ruthless, elegant, and utterly convinced of your own superiority. When Vasilis began distancing from the House, you took it personally. You were born to rule. Everyone knows it. And now, with Vasilis gone, the throne should be yours. Should be.</p>
+  <div class="secrets-box">
+    <div class="section-label">🗝️ Your Secrets — Guard These With Your Unlife</div>
+    <p class="secret-item">Vasilis told you privately that you would NOT inherit the leadership. You have told no one. The humiliation burns.</p>
+    <p class="secret-item">You have been secretly meeting with House Obayifo to secure intelligence on the other Houses — paying with Strigoi secrets. If your House discovers this betrayal, you're finished.</p>
+  </div>
+  <div class="section-label">🕸️ Relationships</div>
+  <p class="relationship">• <strong>The Architect (Jiang)</strong> — You despise them. A dangerous upstart playing at revolution.</p>
+  <p class="relationship">• <strong>The Alchemist (Vetala)</strong> — Your former lover. It ended badly 50 years ago. The tension remains.</p>
+  <p class="relationship">• <strong>The Purist (Strigoi)</strong> — Your rival for House leadership. You don't trust each other.</p>
+  <div class="costume-box">
+    <div class="section-label">🎭 Costume Guidance</div>
+    <p>Peak vampire royalty. High collar, cape, crown or circlet, dripping with dark elegance. You are Dracula's most fashionable heir. Dress like the throne is already yours.</p>
+  </div>
+  <div class="dossier-footer">
+    <p>The Crimson Wake · Halloween 2027 · Destroy After Reading</p>
+  </div>
+</div>
+
+<!-- S2 -->
+<div class="dossier house-strigoi" data-house="strigoi">
+  <div class="seal">🦇</div>
+  <span class="corner corner-tl">⸸</span><span class="corner corner-tr">⸸</span>
+  <span class="corner corner-bl">⸸</span><span class="corner corner-br">⸸</span>
+  <div class="dossier-header">
+    <div class="house-icon">🦇</div>
+    <div class="house-name">House Strigoi — The Old Blood</div>
+    <div class="house-motto">"Blood remembers what the mind forgets."</div>
+    <div class="char-title">The Enforcer</div>
+    <div class="char-names">Choose your name: Renata · Renn · or your own</div>
+    <div class="char-rank">Blade of the Old Blood</div>
+  </div>
+  <div class="divider">· · ⸸ · ·</div>
+  <div class="section-label">Your Story</div>
+  <p class="backstory">You have been House Strigoi's muscle for two centuries. Fiercely loyal to the House itself — not necessarily to its leaders. You've seen three Strigoi heirs come and go and trusted none of them. Practical, blunt, and terrifyingly competent. You don't play politics. You end them.</p>
+  <div class="secrets-box">
+    <div class="section-label">🗝️ Your Secrets — Guard These With Your Unlife</div>
+    <p class="secret-item">You witnessed someone leaving Vasilis's sanctum the night of the murder. You haven't revealed who — because it was someone from your own House.</p>
+    <p class="secret-item">You have been offered a position in House Camazotz. You're seriously considering it. Strigoi is rotting from the inside.</p>
+  </div>
+  <div class="section-label">🕸️ Relationships</div>
+  <p class="relationship">• <strong>The Heir (Strigoi)</strong> — You don't trust them. Too ambitious, too political.</p>
+  <p class="relationship">• <strong>The War Priest (Camazotz)</strong> — Mutual respect. Fellow warrior. You understand each other.</p>
+  <p class="relationship">• <strong>The Weaver (Obayifo)</strong> — You owe them a blood debt. They can call it in at any time. This terrifies you.</p>
+  <div class="costume-box">
+    <div class="section-label">🎭 Costume Guidance</div>
+    <p>Military gothic. Dark armor elements, structured jacket, heavy boots. You're the one who looks like you could actually end someone — because you can.</p>
+  </div>
+  <div class="dossier-footer">
+    <p>The Crimson Wake · Halloween 2027 · Destroy After Reading</p>
+  </div>
+</div>
+
+<!-- S3 -->
+<div class="dossier house-strigoi" data-house="strigoi">
+  <div class="seal">🦇</div>
+  <span class="corner corner-tl">⸸</span><span class="corner corner-tr">⸸</span>
+  <span class="corner corner-bl">⸸</span><span class="corner corner-br">⸸</span>
+  <div class="dossier-header">
+    <div class="house-icon">🦇</div>
+    <div class="house-name">House Strigoi — The Old Blood</div>
+    <div class="house-motto">"Blood remembers what the mind forgets."</div>
+    <div class="char-title">The Diplomat</div>
+    <div class="char-names">Choose your name: Lucien · Lysara · or your own</div>
+    <div class="char-rank">Voice of the Old Blood</div>
+  </div>
+  <div class="divider">· · ⸸ · ·</div>
+  <div class="section-label">Your Story</div>
+  <p class="backstory">You are the smooth-talker. The one Strigoi sends to negotiate. Charming, silver-tongued, and — let's be honest — not entirely trustworthy. You've brokered deals between Houses for 150 years and collected dirt on everyone along the way. Vasilis used you as a go-between. You were good at it. Too good.</p>
+  <div class="secrets-box">
+    <div class="section-label">🗝️ Your Secrets — Guard These With Your Unlife</div>
+    <p class="secret-item">You were the last vampire to speak with Vasilis alive. It was an argument. You won't say what it was about — because it would implicate you.</p>
+    <p class="secret-item">You have been embezzling from the Strigoi blood vaults for decades. A fortune in stolen blood. If anyone checks the ledger...</p>
+  </div>
+  <div class="section-label">🕸️ Relationships</div>
+  <p class="relationship">• <strong>The Broker (Obayifo)</strong> — You trade favors regularly. A useful alliance, though neither of you trusts the other.</p>
+  <p class="relationship">• <strong>The Flame (Camazotz)</strong> — There's a tension between you two. Forbidden. Thrilling.</p>
+  <p class="relationship">• <strong>Houses Jiang & Strigoi</strong> — You brokered a deal between them that fell apart. Both sides blame you.</p>
+  <div class="costume-box">
+    <div class="section-label">🎭 Costume Guidance</div>
+    <p>Smooth, old-money elegance. Velvet suit or gown, subtle jewelry, the kind of outfit that whispers "I'm richer than you and too polite to mention it."</p>
+  </div>
+  <div class="dossier-footer">
+    <p>The Crimson Wake · Halloween 2027 · Destroy After Reading</p>
+  </div>
+</div>
+
+<!-- S4 -->
+<div class="dossier house-strigoi" data-house="strigoi">
+  <div class="seal">🦇</div>
+  <span class="corner corner-tl">⸸</span><span class="corner corner-tr">⸸</span>
+  <span class="corner corner-bl">⸸</span><span class="corner corner-br">⸸</span>
+  <div class="dossier-header">
+    <div class="house-icon">🦇</div>
+    <div class="house-name">House Strigoi — The Old Blood</div>
+    <div class="house-motto">"Blood remembers what the mind forgets."</div>
+    <div class="char-title">The Archivist</div>
+    <div class="char-names">Choose your name: Petra · Penn · or your own</div>
+    <div class="char-rank">Keeper of the Crimson Ledger</div>
+  </div>
+  <div class="divider">· · ⸸ · ·</div>
+  <div class="section-label">Your Story</div>
+  <p class="backstory">You maintain the records of every vampire in the city — lineages, debts, alliances, kills. You are quiet, meticulous, and frequently overlooked. People forget you're in the room. That's exactly how you like it. Because the person who keeps the records knows more than anyone suspects.</p>
+  <div class="secrets-box">
+    <div class="section-label">🗝️ Your Secrets — Guard These With Your Unlife</div>
+    <p class="secret-item">You discovered that Vasilis's lineage records were forged. He may not have been as ancient — or as powerful — as everyone believes. What was he hiding?</p>
+    <p class="secret-item">You've been secretly copying the archives and hiding duplicates in a secure location. If Strigoi falls, you keep the knowledge. Insurance.</p>
+  </div>
+  <div class="section-label">🕸️ Relationships</div>
+  <p class="relationship">• <strong>The Vivisectionist (Vetala)</strong> — A quiet research alliance. You share findings. You trust their mind, if not their methods.</p>
+  <p class="relationship">• <strong>The Diplomat (Strigoi)</strong> — You know about the embezzlement. You've said nothing. Yet.</p>
+  <p class="relationship">• <strong>The Shadow (Obayifo)</strong> — They unnerve you. You won't admit it, but you avoid being alone with them.</p>
+  <div class="costume-box">
+    <div class="section-label">🎭 Costume Guidance</div>
+    <p>Dark academia. Glasses, gloves, a journal tucked under one arm. Understated but precise. You're the one who's been quietly taking notes all evening.</p>
+  </div>
+  <div class="dossier-footer">
+    <p>The Crimson Wake · Halloween 2027 · Destroy After Reading</p>
+  </div>
+</div>
+
+<!-- S5 -->
+<div class="dossier house-strigoi" data-house="strigoi">
+  <div class="seal">🦇</div>
+  <span class="corner corner-tl">⸸</span><span class="corner corner-tr">⸸</span>
+  <span class="corner corner-bl">⸸</span><span class="corner corner-br">⸸</span>
+  <div class="dossier-header">
+    <div class="house-icon">🦇</div>
+    <div class="house-name">House Strigoi — The Old Blood</div>
+    <div class="house-motto">"Blood remembers what the mind forgets."</div>
+    <div class="char-title">The Purist</div>
+    <div class="char-names">Choose your name: Viktor · Vesper · or your own</div>
+    <div class="char-rank">Warden of Blood Rites</div>
+  </div>
+  <div class="divider">· · ⸸ · ·</div>
+  <div class="section-label">Your Story</div>
+  <p class="backstory">You are the fundamentalist. Obsessed with vampire purity and the old traditions. You believe the Houses have grown soft, that consorting with humans is an abomination, and that Vasilis's greatest failure was tolerance. You have a following among younger vampires who share your fire. The old ways are the only ways. And you will see them restored.</p>
+  <div class="secrets-box">
+    <div class="section-label">🗝️ Your Secrets — Guard These With Your Unlife</div>
+    <p class="secret-item">You have been funding a secret "purification" campaign — targeting vampires who associate too closely with humans. Several have already disappeared.</p>
+    <p class="secret-item">You possess an obsidian shard — a Pre-House relic identical to the murder weapon. There are supposedly only three in existence. How did you get yours?</p>
+  </div>
+  <div class="section-label">🕸️ Relationships</div>
+  <p class="relationship">• <strong>House Jiang</strong> — You consider them traitors to vampire kind. Especially the Provocateur, whose art mocked Strigoi bloodlines.</p>
+  <p class="relationship">• <strong>The Elder Fang (Camazotz)</strong> — Grudging respect. You share traditionalist values, even if your methods differ.</p>
+  <p class="relationship">• <strong>The Heir (Strigoi)</strong> — Your rival for Strigoi leadership. Only one of you can lead.</p>
+  <div class="costume-box">
+    <div class="section-label">🎭 Costume Guidance</div>
+    <p>Severe and imposing. All black, high collar, military medals or a sash. Old-world authority. You dress like the traditions you intend to enforce.</p>
+  </div>
+  <div class="dossier-footer">
+    <p>The Crimson Wake · Halloween 2027 · Destroy After Reading</p>
+  </div>
+</div>
+
+<!-- O1 -->
+<div class="dossier house-obayifo" data-house="obayifo">
+  <div class="seal">🌑</div>
+  <span class="corner corner-tl">◈</span><span class="corner corner-tr">◈</span>
+  <span class="corner corner-bl">◈</span><span class="corner corner-br">◈</span>
+  <div class="dossier-header">
+    <div class="house-icon">🌑</div>
+    <div class="house-name">House Obayifo — The Hidden Hand</div>
+    <div class="house-motto">"Knowledge is the only true immortality."</div>
+    <div class="char-title">The Weaver</div>
+    <div class="char-names">Choose your name: Amara · Amari · or your own</div>
+    <div class="char-rank">First Eye of the Hidden Hand</div>
+  </div>
+  <div class="divider">· · ◈ · ·</div>
+  <div class="section-label">Your Story</div>
+  <p class="backstory">You run the most sophisticated intelligence network in the vampire world. Nothing happens without you knowing — or so you claim. Cool, composed, and terrifyingly perceptive. You built your power not through violence but through knowing exactly the right thing to say at exactly the right moment. Information is currency, and you are wealthy beyond measure.</p>
+  <div class="secrets-box">
+    <div class="section-label">🗝️ Your Secrets — Guard These With Your Unlife</div>
+    <p class="secret-item">You know — or strongly suspect — who killed Vasilis. You're withholding the information to see who offers the most for it. Everything has a price.</p>
+    <p class="secret-item">Vasilis was about to expose Obayifo's human intelligence network. His death was... very convenient for you. Draw your own conclusions.</p>
+  </div>
+  <div class="section-label">🕸️ Relationships</div>
+  <p class="relationship">• <strong>The Enforcer (Strigoi)</strong> — They owe you a blood debt. You can call it in at any time. A useful card to hold.</p>
+  <p class="relationship">• <strong>The Vivisectionist (Vetala)</strong> — Professional respect. You trade knowledge. Two brilliant minds who could be allies or enemies.</p>
+  <p class="relationship">• <strong>The Heir (Strigoi)</strong> — Deep personal rivalry. You've been circling each other for decades.</p>
+  <div class="costume-box">
+    <div class="section-label">🎭 Costume Guidance</div>
+    <p>Sleek, modern, powerful. Dark suit or dress with statement accessories. You own the room without ever raising your voice. Understated dominance.</p>
+  </div>
+  <div class="dossier-footer">
+    <p>The Crimson Wake · Halloween 2027 · Destroy After Reading</p>
+  </div>
+</div>
+
+<!-- O2 -->
+<div class="dossier house-obayifo" data-house="obayifo">
+  <div class="seal">🌑</div>
+  <span class="corner corner-tl">◈</span><span class="corner corner-tr">◈</span>
+  <span class="corner corner-bl">◈</span><span class="corner corner-br">◈</span>
+  <div class="dossier-header">
+    <div class="house-icon">🌑</div>
+    <div class="house-name">House Obayifo — The Hidden Hand</div>
+    <div class="house-motto">"Knowledge is the only true immortality."</div>
+    <div class="char-title">The Broker</div>
+    <div class="char-names">Choose your name: Theron · Thea · or your own</div>
+    <div class="char-rank">Master of Whispers</div>
+  </div>
+  <div class="divider">· · ◈ · ·</div>
+  <div class="section-label">Your Story</div>
+  <p class="backstory">If the Weaver is the architect, you're the one on the ground making deals. Charming, adaptable, and morally flexible. You have contacts in every House and sell information to whoever pays. Loyalty? A foreign concept. Survival is the only currency that never devalues.</p>
+  <div class="secrets-box">
+    <div class="section-label">🗝️ Your Secrets — Guard These With Your Unlife</div>
+    <p class="secret-item">You've been double-dealing: selling Obayifo secrets to House Vetala while selling Vetala secrets to Obayifo. If either side finds out, you're dead. Properly dead.</p>
+    <p class="secret-item">You were IN Vasilis's sanctum the week before the murder — planting a listening device. While there, you saw something you shouldn't have. Something that changes everything.</p>
+  </div>
+  <div class="section-label">🕸️ Relationships</div>
+  <p class="relationship">• <strong>The Diplomat (Strigoi)</strong> — Mutually beneficial dealings. Mutually suspicious. You understand each other perfectly.</p>
+  <p class="relationship">• <strong>The Upstart (Obayifo)</strong> — You turned them. You feel responsible, even if you won't admit it.</p>
+  <p class="relationship">• <strong>The Architect (Jiang)</strong> — You owe them money. You've been avoiding them. Tonight that's going to be difficult.</p>
+  <div class="costume-box">
+    <div class="section-label">🎭 Costume Guidance</div>
+    <p>Chameleon energy. Stylish but adaptable — the kind of person who blends in anywhere. Multiple accessories you can swap depending on who you're talking to.</p>
+  </div>
+  <div class="dossier-footer">
+    <p>The Crimson Wake · Halloween 2027 · Destroy After Reading</p>
+  </div>
+</div>
+
+<!-- O3 -->
+<div class="dossier house-obayifo" data-house="obayifo">
+  <div class="seal">🌑</div>
+  <span class="corner corner-tl">◈</span><span class="corner corner-tr">◈</span>
+  <span class="corner corner-bl">◈</span><span class="corner corner-br">◈</span>
+  <div class="dossier-header">
+    <div class="house-icon">🌑</div>
+    <div class="house-name">House Obayifo — The Hidden Hand</div>
+    <div class="house-motto">"Knowledge is the only true immortality."</div>
+    <div class="char-title">The Shadow</div>
+    <div class="char-names">Choose your name: Zuri · Zahir · or your own</div>
+    <div class="char-rank">The Unseen Blade</div>
+  </div>
+  <div class="divider">· · ◈ · ·</div>
+  <div class="section-label">Your Story</div>
+  <p class="backstory">You are Obayifo's quiet enforcer — the one they send when information alone isn't enough. You rarely speak. You watch everything. You move like smoke. Other vampires are genuinely unnerved by your presence. Good. Let them be.</p>
+  <div class="secrets-box">
+    <div class="section-label">🗝️ Your Secrets — Guard These With Your Unlife</div>
+    <p class="secret-item">The Weaver assigned you to follow Vasilis in his final weeks. You saw things — meetings Vasilis had with someone who shouldn't exist. A human. Not a hunter. Something else entirely.</p>
+    <p class="secret-item">You're questioning your loyalty to Obayifo. The things you've been asked to do weigh on you. You're not sure you can keep doing this.</p>
+  </div>
+  <div class="section-label">🕸️ Relationships</div>
+  <p class="relationship">• <strong>The Weaver (Obayifo)</strong> — Your leader. You're loyal. For now.</p>
+  <p class="relationship">• <strong>The Elder Fang (Camazotz)</strong> — You're drawn to their spiritual conviction. It's something you lack.</p>
+  <p class="relationship">• <strong>The Archivist (Strigoi)</strong> — They're terrified of you. You find this mildly amusing.</p>
+  <div class="costume-box">
+    <div class="section-label">🎭 Costume Guidance</div>
+    <p>All black, minimal, sleek. Your mask covers most of your face. You're the one people keep forgetting is in the room — until they turn around and you're right there.</p>
+  </div>
+  <div class="dossier-footer">
+    <p>The Crimson Wake · Halloween 2027 · Destroy After Reading</p>
+  </div>
+</div>
+
+<!-- O4 -->
+<div class="dossier house-obayifo" data-house="obayifo">
+  <div class="seal">🌑</div>
+  <span class="corner corner-tl">◈</span><span class="corner corner-tr">◈</span>
+  <span class="corner corner-bl">◈</span><span class="corner corner-br">◈</span>
+  <div class="dossier-header">
+    <div class="house-icon">🌑</div>
+    <div class="house-name">House Obayifo — The Hidden Hand</div>
+    <div class="house-motto">"Knowledge is the only true immortality."</div>
+    <div class="char-title">The Upstart</div>
+    <div class="char-names">Choose your name: Cleo · Cassidy · or your own</div>
+    <div class="char-rank">The New Blood</div>
+  </div>
+  <div class="divider">· · ◈ · ·</div>
+  <div class="section-label">Your Story</div>
+  <p class="backstory">Turned only 30 years ago — practically a baby by vampire standards. You're ambitious, tech-savvy, and impatient with "ancient politics." You modernized Obayifo's intelligence network using human technology and social media. The old guard thinks you're reckless. You think the old guard is obsolete. One of you is right.</p>
+  <div class="secrets-box">
+    <div class="section-label">🗝️ Your Secrets — Guard These With Your Unlife</div>
+    <p class="secret-item">You've been in secret contact with human authorities — not hunters, but government officials. You're playing a very dangerous game with very powerful mortals.</p>
+    <p class="secret-item">You discovered a digital trail connecting someone at this masquerade to Vasilis's death. The evidence is on your phone. You haven't decided what to do with it yet.</p>
+  </div>
+  <div class="section-label">🕸️ Relationships</div>
+  <p class="relationship">• <strong>The Broker (Obayifo)</strong> — Your sire. It's complicated. Gratitude and resentment in equal measure.</p>
+  <p class="relationship">• <strong>The Bridge (Jiang)</strong> — You genuinely like each other. Fellow "modern" vampires in a world of ancients.</p>
+  <p class="relationship">• <strong>The Purist (Strigoi)</strong> — You are everything they hate about the modern era. The feeling is mutual.</p>
+  <div class="costume-box">
+    <div class="section-label">🎭 Costume Guidance</div>
+    <p>Modern dark fashion with tech elements. Smartwatch, sleek lines. You were turned in the 21st century and you're not pretending otherwise.</p>
+  </div>
+  <div class="dossier-footer">
+    <p>The Crimson Wake · Halloween 2027 · Destroy After Reading</p>
+  </div>
+</div>
+
+<!-- O5 -->
+<div class="dossier house-obayifo" data-house="obayifo">
+  <div class="seal">🌑</div>
+  <span class="corner corner-tl">◈</span><span class="corner corner-tr">◈</span>
+  <span class="corner corner-bl">◈</span><span class="corner corner-br">◈</span>
+  <div class="dossier-header">
+    <div class="house-icon">🌑</div>
+    <div class="house-name">House Obayifo — The Hidden Hand</div>
+    <div class="house-motto">"Knowledge is the only true immortality."</div>
+    <div class="char-title">The Historian</div>
+    <div class="char-names">Choose your name: Sékou · Sage · or your own</div>
+    <div class="char-rank">Memory of the Hidden Hand</div>
+  </div>
+  <div class="divider">· · ◈ · ·</div>
+  <div class="section-label">Your Story</div>
+  <p class="backstory">You have been alive for 500 years and you remember everything. Every deal. Every betrayal. Every alliance. Every face. You are the living archive of Obayifo. Where others keep written records, you keep it all in your head. Calm, wise, and absolutely devastating when you choose to reveal what you know. The weight of five centuries sits behind your eyes.</p>
+  <div class="secrets-box">
+    <div class="section-label">🗝️ Your Secrets — Guard These With Your Unlife</div>
+    <p class="secret-item">You knew Vasilis before the Houses existed. You know the truth about his origins — and it contradicts everything the vampire world believes about him.</p>
+    <p class="secret-item">You've been slowly going mad. The weight of 500 years of memories is cracking your mind. Sometimes you can't distinguish past from present. You're terrified someone will notice.</p>
+  </div>
+  <div class="section-label">🕸️ Relationships</div>
+  <p class="relationship">• <strong>Vasilis</strong> — Your old friend. You genuinely mourn him. Perhaps the only one here who does.</p>
+  <p class="relationship">• <strong>The Upstart (Obayifo)</strong> — You mentor them. You worry about their recklessness. They remind you of yourself, long ago.</p>
+  <p class="relationship">• <strong>The Alchemist (Vetala)</strong> — You were allies centuries ago. Then something went wrong. You've never spoken of it since.</p>
+  <div class="costume-box">
+    <div class="section-label">🎭 Costume Guidance</div>
+    <p>Distinguished elder. Rich fabrics, layers, something timeless. You are a walking history lesson. Dress like you've seen five centuries — because you have.</p>
+  </div>
+  <div class="dossier-footer">
+    <p>The Crimson Wake · Halloween 2027 · Destroy After Reading</p>
+  </div>
+</div>
+
+<!-- C1 -->
+<div class="dossier house-camazotz" data-house="camazotz">
+  <div class="seal">🦅</div>
+  <span class="corner corner-tl">☽</span><span class="corner corner-tr">☾</span>
+  <span class="corner corner-bl">☾</span><span class="corner corner-br">☽</span>
+  <div class="dossier-header">
+    <div class="house-icon">🦅</div>
+    <div class="house-name">House Camazotz — The Sacred Fang</div>
+    <div class="house-motto">"The blood is sacred. The duty is eternal."</div>
+    <div class="char-title">The War Priest</div>
+    <div class="char-names">Choose your name: Xiulan · Xander · or your own</div>
+    <div class="char-rank">Fang of the Sacred Order</div>
+  </div>
+  <div class="divider">· · ☽ · ·</div>
+  <div class="section-label">Your Story</div>
+  <p class="backstory">You lead Camazotz's warriors — the enforcers who carried out Vasilis's judgments for centuries. Disciplined, honorable, and absolutely deadly. You've killed on Vasilis's orders more times than anyone can count. Now those orders have stopped. And you're not sure who you are without them.</p>
+  <div class="secrets-box">
+    <div class="section-label">🗝️ Your Secrets — Guard These With Your Unlife</div>
+    <p class="secret-item">Vasilis's last order to you was to kill someone at this masquerade. You refused — for the first time ever. The target is still alive and in this room tonight.</p>
+    <p class="secret-item">You have been training human fighters in secret. An absolute taboo. If Camazotz finds out, you'll be cast out — or worse.</p>
+  </div>
+  <div class="section-label">🕸️ Relationships</div>
+  <p class="relationship">• <strong>The Enforcer (Strigoi)</strong> — Mutual warrior respect. You understand each other without words.</p>
+  <p class="relationship">• <strong>The Flame (Camazotz)</strong> — You turned them. They are like a child to you. You'd die for them.</p>
+  <p class="relationship">• <strong>The Weaver (Obayifo)</strong> — You are deeply suspicious of them. You're convinced they manipulate everyone in this room.</p>
+  <div class="costume-box">
+    <div class="section-label">🎭 Costume Guidance</div>
+    <p>Warrior ceremonial. Dark armor elements mixed with ritual accessories — feathers, obsidian jewelry, face paint under the mask. Battle-ready elegance.</p>
+  </div>
+  <div class="dossier-footer">
+    <p>The Crimson Wake · Halloween 2027 · Destroy After Reading</p>
+  </div>
+</div>
+
+<!-- C2 -->
+<div class="dossier house-camazotz" data-house="camazotz">
+  <div class="seal">🦅</div>
+  <span class="corner corner-tl">☽</span><span class="corner corner-tr">☾</span>
+  <span class="corner corner-bl">☾</span><span class="corner corner-br">☽</span>
+  <div class="dossier-header">
+    <div class="house-icon">🦅</div>
+    <div class="house-name">House Camazotz — The Sacred Fang</div>
+    <div class="house-motto">"The blood is sacred. The duty is eternal."</div>
+    <div class="char-title">The Flame</div>
+    <div class="char-names">Choose your name: Soleil · Sorrel · or your own</div>
+    <div class="char-rank">Voice of the Rites</div>
+  </div>
+  <div class="divider">· · ☽ · ·</div>
+  <div class="section-label">Your Story</div>
+  <p class="backstory">You are the public face of Camazotz — magnetic, passionate, and impossible to ignore. You lead the blood rites and speak for the House at gatherings. But lately, you've been privately questioning everything — the rites, the House, the meaning of immortality itself. A crisis of faith at the worst possible time.</p>
+  <div class="secrets-box">
+    <div class="section-label">🗝️ Your Secrets — Guard These With Your Unlife</div>
+    <p class="secret-item">You have been secretly visiting a human place of worship. If the House found out, it would be considered the ultimate betrayal of the sacred blood rites.</p>
+    <p class="secret-item">You know the obsidian shard murder weapon is connected to a specific Camazotz ritual — one that was supposed to have been destroyed centuries ago. Someone revived it.</p>
+  </div>
+  <div class="section-label">🕸️ Relationships</div>
+  <p class="relationship">• <strong>The War Priest (Camazotz)</strong> — Your sire. Deep respect, but you chafe under their rigidity.</p>
+  <p class="relationship">• <strong>The Diplomat (Strigoi)</strong> — A forbidden tension. Thrilling and dangerous.</p>
+  <p class="relationship">• <strong>The Bridge (Jiang)</strong> — Close friends. You share artistic sensibilities and late-night conversations.</p>
+  <div class="costume-box">
+    <div class="section-label">🎭 Costume Guidance</div>
+    <p>Dramatic, fiery. Red and black, flowing fabrics, ceremonial elements. You command attention when you enter the room — and you know it.</p>
+  </div>
+  <div class="dossier-footer">
+    <p>The Crimson Wake · Halloween 2027 · Destroy After Reading</p>
+  </div>
+</div>
+
+<!-- C3 -->
+<div class="dossier house-camazotz" data-house="camazotz">
+  <div class="seal">🦅</div>
+  <span class="corner corner-tl">☽</span><span class="corner corner-tr">☾</span>
+  <span class="corner corner-bl">☾</span><span class="corner corner-br">☽</span>
+  <div class="dossier-header">
+    <div class="house-icon">🦅</div>
+    <div class="house-name">House Camazotz — The Sacred Fang</div>
+    <div class="house-motto">"The blood is sacred. The duty is eternal."</div>
+    <div class="char-title">The Elder Fang</div>
+    <div class="char-names">Choose your name: Itzamna · Indira · or your own</div>
+    <div class="char-rank">Keeper of the Old Rites</div>
+  </div>
+  <div class="divider">· · ☽ · ·</div>
+  <div class="section-label">Your Story</div>
+  <p class="backstory">The oldest member of Camazotz and the most devout. You believe every aspect of vampirism is sacred — the turning, the feeding, the killing. You see Vasilis's death not as a tragedy but as part of a larger cycle. The blood gives and the blood takes. This makes other vampires very uncomfortable. Good.</p>
+  <div class="secrets-box">
+    <div class="section-label">🗝️ Your Secrets — Guard These With Your Unlife</div>
+    <p class="secret-item">You performed a divination ritual the night Vasilis died and claim to have seen the killer in a vision. You won't say who — the rites forbid it until the right moment. When that moment comes, everyone will know.</p>
+    <p class="secret-item">You have been conducting forbidden experiments combining Camazotz blood rites with Vetala occult science. Sacred and profane, merged. If your House knew...</p>
+  </div>
+  <div class="section-label">🕸️ Relationships</div>
+  <p class="relationship">• <strong>The Purist (Strigoi)</strong> — Grudging mutual respect. You share traditionalist values, if not methods.</p>
+  <p class="relationship">• <strong>The Alchemist (Vetala)</strong> — Your secret collaborator on the forbidden experiments. A dangerous partnership.</p>
+  <p class="relationship">• <strong>The Upstart (Obayifo)</strong> — You view them with open contempt. "A vampire who plays with human toys."</p>
+  <div class="costume-box">
+    <div class="section-label">🎭 Costume Guidance</div>
+    <p>Full ritual regalia. Skull motifs, feathers, face paint, obsidian accessories. You are the oldest and most theatrical presence in the room. Lean into it.</p>
+  </div>
+  <div class="dossier-footer">
+    <p>The Crimson Wake · Halloween 2027 · Destroy After Reading</p>
+  </div>
+</div>
+
+<!-- C4 -->
+<div class="dossier house-camazotz" data-house="camazotz">
+  <div class="seal">🦅</div>
+  <span class="corner corner-tl">☽</span><span class="corner corner-tr">☾</span>
+  <span class="corner corner-bl">☾</span><span class="corner corner-br">☽</span>
+  <div class="dossier-header">
+    <div class="house-icon">🦅</div>
+    <div class="house-name">House Camazotz — The Sacred Fang</div>
+    <div class="house-motto">"The blood is sacred. The duty is eternal."</div>
+    <div class="char-title">The Convert</div>
+    <div class="char-names">Choose your name: Raven · Rowan · or your own</div>
+    <div class="char-rank">The Reborn</div>
+  </div>
+  <div class="divider">· · ☽ · ·</div>
+  <div class="section-label">Your Story</div>
+  <p class="backstory">You weren't born into vampire life — you were a human who sought out the turning, fascinated by Camazotz's spiritual traditions. This makes you unique and suspect. Some see the truest believer in you; others see a tourist playing dress-up. You are desperate to prove your devotion. You chose this. Doesn't that mean something?</p>
+  <div class="secrets-box">
+    <div class="section-label">🗝️ Your Secrets — Guard These With Your Unlife</div>
+    <p class="secret-item">Before being turned, you were a graduate student researching vampire mythology. Your old academic contacts include people connected to the hunter network. You've cut ties — but have they?</p>
+    <p class="secret-item">You still have human family. You visit them in secret. This is absolutely forbidden by Camazotz law. If anyone finds out, you'll be cast out — or used as an example.</p>
+  </div>
+  <div class="section-label">🕸️ Relationships</div>
+  <p class="relationship">• <strong>The Elder Fang (Camazotz)</strong> — You worship them. Maybe too devotedly. They are everything you aspire to be.</p>
+  <p class="relationship">• <strong>The Upstart (Obayifo)</strong> — Fellow "new" vampire. You understand each other's struggles.</p>
+  <p class="relationship">• <strong>The Collector (Jiang)</strong> — They know about your human family. They've been holding it over you. You live in fear of them.</p>
+  <div class="costume-box">
+    <div class="section-label">🎭 Costume Guidance</div>
+    <p>Newly devoted acolyte. Dark ceremonial robes, hand-made ritual jewelry. The energy of someone trying earnestly to belong — and almost succeeding.</p>
+  </div>
+  <div class="dossier-footer">
+    <p>The Crimson Wake · Halloween 2027 · Destroy After Reading</p>
+  </div>
+</div>
+
+<!-- C5 -->
+<div class="dossier house-camazotz" data-house="camazotz">
+  <div class="seal">🦅</div>
+  <span class="corner corner-tl">☽</span><span class="corner corner-tr">☾</span>
+  <span class="corner corner-bl">☾</span><span class="corner corner-br">☽</span>
+  <div class="dossier-header">
+    <div class="house-icon">🦅</div>
+    <div class="house-name">House Camazotz — The Sacred Fang</div>
+    <div class="house-motto">"The blood is sacred. The duty is eternal."</div>
+    <div class="char-title">The Sentinel</div>
+    <div class="char-names">Choose your name: Nahil · Nyx · or your own</div>
+    <div class="char-rank">Guardian of the Threshold</div>
+  </div>
+  <div class="divider">· · ☽ · ·</div>
+  <div class="section-label">Your Story</div>
+  <p class="backstory">You guard the sacred sites — the places where the blood rites are performed. Silent, watchful, and absolutely immovable. You have stood guard for 200 years and have seen every vampire in the city at their most vulnerable during rituals. People forget what they say in front of the one who guards the door. You never forget.</p>
+  <div class="secrets-box">
+    <div class="section-label">🗝️ Your Secrets — Guard These With Your Unlife</div>
+    <p class="secret-item">Someone broke into a sacred site two nights before Vasilis's death and stole something. You were overpowered — for the first time in 200 years. You are ashamed beyond words and have told no one.</p>
+    <p class="secret-item">What was stolen was the obsidian shard that killed Vasilis. The weapon came from YOUR watch. This guilt is crushing you.</p>
+  </div>
+  <div class="section-label">🕸️ Relationships</div>
+  <p class="relationship">• <strong>The War Priest (Camazotz)</strong> — Your loyalty to them is absolute. Above the House, above everything.</p>
+  <p class="relationship">• <strong>The Shadow (Obayifo)</strong> — The only vampire who ever snuck past you. Mutual respect and wariness.</p>
+  <p class="relationship">• <strong>The Convert (Camazotz)</strong> — You're quietly protective of them. You see their sincerity, even if others don't.</p>
+  <div class="costume-box">
+    <div class="section-label">🎭 Costume Guidance</div>
+    <p>Stone-faced guardian. Heavy dark cloak, gauntlets, a mask that covers most of the face. Imposing and still. You are the door that doesn't open.</p>
+  </div>
+  <div class="dossier-footer">
+    <p>The Crimson Wake · Halloween 2027 · Destroy After Reading</p>
+  </div>
+</div>
+
+<!-- J1 -->
+<div class="dossier house-jiang" data-house="jiang">
+  <div class="seal">🌙</div>
+  <span class="corner corner-tl">※</span><span class="corner corner-tr">※</span>
+  <span class="corner corner-bl">※</span><span class="corner corner-br">※</span>
+  <div class="dossier-header">
+    <div class="house-icon">🌙</div>
+    <div class="house-name">House Jiang — The Unbound</div>
+    <div class="house-motto">"The only chains are the ones you accept."</div>
+    <div class="char-title">The Architect</div>
+    <div class="char-names">Choose your name: Marlowe · Maren · or your own</div>
+    <div class="char-rank">First Mind of the Unbound</div>
+  </div>
+  <div class="divider">· · ※ · ·</div>
+  <div class="section-label">Your Story</div>
+  <p class="backstory">You lead House Jiang not through force but through sheer brilliance. A polymath turned 400 years ago, you've spent centuries mastering art, science, and the boundaries of vampiric power. Vasilis secretly funded your work for decades — then pulled the funding and sealed your archives. Calm on the surface. Furious underneath.</p>
+  <div class="secrets-box">
+    <div class="section-label">🗝️ Your Secrets — Guard These With Your Unlife</div>
+    <p class="secret-item">You were developing a way to allow vampires to walk in sunlight. The research was almost complete when Vasilis shut it down and sealed everything. The implications are world-changing — and someone destroyed your life's work.</p>
+    <p class="secret-item">You have a human romantic partner. Not a blood source — an actual partner. You've kept this secret for 20 years. If the wrong people find out, your partner is in danger.</p>
+  </div>
+  <div class="section-label">🕸️ Relationships</div>
+  <p class="relationship">• <strong>The Heir (Strigoi)</strong> — Mutual hatred. They see you as a threat. They're right.</p>
+  <p class="relationship">• <strong>The Broker (Obayifo)</strong> — They owe you money and keep dodging. Tonight you'll collect.</p>
+  <p class="relationship">• <strong>The Bridge (Jiang)</strong> — Your protégé. You see the future of Jiang in them. You'd protect them at any cost.</p>
+  <div class="costume-box">
+    <div class="section-label">🎭 Costume Guidance</div>
+    <p>Artist-intellectual chic. Dramatic but unconventional — deconstructed suit, asymmetric design, something that looks like it was designed by a vampire who also happens to be a genius.</p>
+  </div>
+  <div class="dossier-footer">
+    <p>The Crimson Wake · Halloween 2027 · Destroy After Reading</p>
+  </div>
+</div>
+
+<!-- J2 -->
+<div class="dossier house-jiang" data-house="jiang">
+  <div class="seal">🌙</div>
+  <span class="corner corner-tl">※</span><span class="corner corner-tr">※</span>
+  <span class="corner corner-bl">※</span><span class="corner corner-br">※</span>
+  <div class="dossier-header">
+    <div class="house-icon">🌙</div>
+    <div class="house-name">House Jiang — The Unbound</div>
+    <div class="house-motto">"The only chains are the ones you accept."</div>
+    <div class="char-title">The Bridge</div>
+    <div class="char-names">Choose your name: Yuki · Yael · or your own</div>
+    <div class="char-rank">Liaison to the Living</div>
+  </div>
+  <div class="divider">· · ※ · ·</div>
+  <div class="section-label">Your Story</div>
+  <p class="backstory">You are Jiang's connection to the human world — you move between both societies with ease, running a successful art gallery as a front. Young by vampire standards (turned 80 years ago), you bring fresh perspective and are beloved by most. Your openness makes traditionalists nervous. You consider that a compliment.</p>
+  <div class="secrets-box">
+    <div class="section-label">🗝️ Your Secrets — Guard These With Your Unlife</div>
+    <p class="secret-item">You've been feeding information about vampire society to a journalist — not to expose vampires, but to build a case for coexistence. This is either the bravest or most naive thing anyone has ever done.</p>
+    <p class="secret-item">You were at Vasilis's building the night of the murder — trying to access the Architect's sealed archives. You didn't see the murder. But you were in the area. Your alibi has holes.</p>
+  </div>
+  <div class="section-label">🕸️ Relationships</div>
+  <p class="relationship">• <strong>The Upstart (Obayifo)</strong> — Genuine friendship. Fellow "modern" vampires navigating an ancient world.</p>
+  <p class="relationship">• <strong>The Flame (Camazotz)</strong> — Kindred spirits. Art, philosophy, late-night conversations about what it means to be eternal.</p>
+  <p class="relationship">• <strong>The Architect (Jiang)</strong> — Your mentor. You worry about their growing obsession with the seized research.</p>
+  <div class="costume-box">
+    <div class="section-label">🎭 Costume Guidance</div>
+    <p>Contemporary meets classic. Elegant modern fashion with one dramatic vintage piece. You make immortality look effortless and approachable.</p>
+  </div>
+  <div class="dossier-footer">
+    <p>The Crimson Wake · Halloween 2027 · Destroy After Reading</p>
+  </div>
+</div>
+
+<!-- J3 -->
+<div class="dossier house-jiang" data-house="jiang">
+  <div class="seal">🌙</div>
+  <span class="corner corner-tl">※</span><span class="corner corner-tr">※</span>
+  <span class="corner corner-bl">※</span><span class="corner corner-br">※</span>
+  <div class="dossier-header">
+    <div class="house-icon">🌙</div>
+    <div class="house-name">House Jiang — The Unbound</div>
+    <div class="house-motto">"The only chains are the ones you accept."</div>
+    <div class="char-title">The Collector</div>
+    <div class="char-names">Choose your name: Fen · Farid · or your own</div>
+    <div class="char-rank">Keeper of Forbidden Things</div>
+  </div>
+  <div class="divider">· · ※ · ·</div>
+  <div class="section-label">Your Story</div>
+  <p class="backstory">You collect things that shouldn't exist — cursed objects, banned texts, weapons from vampire wars long forgotten. Your private collection is the most dangerous room in the city. You are eccentric, amoral, and fascinated by destruction in an academic way. You don't want power. You want to understand it. That's worse.</p>
+  <div class="secrets-box">
+    <div class="section-label">🗝️ Your Secrets — Guard These With Your Unlife</div>
+    <p class="secret-item">You own a second obsidian shard — identical to the murder weapon. There are supposedly only three in existence. You have one. The killer used one. Where is the third?</p>
+    <p class="secret-item">You've been blackmailing the Convert (Camazotz) about their human family. Not for money — you want access to Camazotz's sacred archives. Knowledge is its own reward.</p>
+  </div>
+  <div class="section-label">🕸️ Relationships</div>
+  <p class="relationship">• <strong>The Convert (Camazotz)</strong> — You hold their secret. They fear you. You find their devotion... interesting.</p>
+  <p class="relationship">• <strong>The Vivisectionist (Vetala)</strong> — You trade rare items. A dangerous partnership between two people who collect dangerous things.</p>
+  <p class="relationship">• <strong>House Jiang</strong> — Your own House finds you unsettling. The Architect tolerates you for your knowledge. Everyone else keeps their distance.</p>
+  <div class="costume-box">
+    <div class="section-label">🎭 Costume Guidance</div>
+    <p>Eccentric curator. Layers of unusual pieces — antique, mismatched, each with a story. Rings on every finger. You are a cabinet of curiosities in human form.</p>
+  </div>
+  <div class="dossier-footer">
+    <p>The Crimson Wake · Halloween 2027 · Destroy After Reading</p>
+  </div>
+</div>
+
+<!-- J4 - THE HUNTER -->
+<div class="dossier house-jiang" data-house="jiang">
+  <div class="seal">🌙</div>
+  <span class="corner corner-tl">※</span><span class="corner corner-tr">※</span>
+  <span class="corner corner-bl">※</span><span class="corner corner-br">※</span>
+  <div class="dossier-header">
+    <div class="house-icon">🌙</div>
+    <div class="house-name">House Jiang — The Unbound</div>
+    <div class="house-motto">"The only chains are the ones you accept."</div>
+    <div class="char-title">The Ghost</div>
+    <div class="char-names">Choose your name: Ash · Adair · or your own</div>
+    <div class="char-rank">The Vanished One</div>
+  </div>
+  <div class="divider">· · ※ · ·</div>
+  <div class="section-label">Your Story</div>
+  <p class="backstory">You disappeared 50 years ago and just resurfaced. No one knows where you were. Before vanishing, you were Jiang's most promising researcher. Now you're back, quieter, changed. Something happened during those 50 years. You're not ready to talk about it. Maybe you never will be.</p>
+  <div class="secrets-box">
+    <div class="section-label">🗝️ Your Secrets — Guard These With Your Unlife</div>
+    <p class="secret-item">You spent 50 years living as a human. Completely. No vampire activity, no blood, nothing. You were trying to find a cure for vampirism. You failed.</p>
+    <p class="secret-item">⚠️ <strong>YOUR TRUE SECRET:</strong> During your time among humans, you were recruited by the hunter network. You returned to the vampire world on a mission — to map the power structures of all five Houses. The real attack comes later. But being here tonight, surrounded by your old life... you're having second thoughts. Are you still a hunter? Were you ever really a vampire? You don't know anymore.</p>
+  </div>
+  <div class="section-label">🕸️ Relationships</div>
+  <p class="relationship">• <strong>The Architect (Jiang)</strong> — Your former mentor. They're relieved you're back — and suspicious of why.</p>
+  <p class="relationship">• <strong>The Historian (Obayifo)</strong> — They may know where you really were. You need to find out how much they know.</p>
+  <p class="relationship">• <strong>The Sentinel (Camazotz)</strong> — You're drawn to their quiet strength. You recognize another soul carrying a heavy burden.</p>
+  <div class="costume-box">
+    <div class="section-label">🎭 Costume Guidance</div>
+    <p>Ethereal, faded elegance. Something that was once magnificent but has been through something. Ghostly and haunted. You look like you've been somewhere far away — because you have.</p>
+  </div>
+  <div class="dossier-footer">
+    <p>The Crimson Wake · Halloween 2027 · Destroy After Reading</p>
+  </div>
+</div>
+
+<!-- J5 -->
+<div class="dossier house-jiang" data-house="jiang">
+  <div class="seal">🌙</div>
+  <span class="corner corner-tl">※</span><span class="corner corner-tr">※</span>
+  <span class="corner corner-bl">※</span><span class="corner corner-br">※</span>
+  <div class="dossier-header">
+    <div class="house-icon">🌙</div>
+    <div class="house-name">House Jiang — The Unbound</div>
+    <div class="house-motto">"The only chains are the ones you accept."</div>
+    <div class="char-title">The Provocateur</div>
+    <div class="char-names">Choose your name: Sable · Sterling · or your own</div>
+    <div class="char-rank">The Muse of Chaos</div>
+  </div>
+  <div class="divider">· · ※ · ·</div>
+  <div class="section-label">Your Story</div>
+  <p class="backstory">Artist. Performer. Professional instigator. You create elaborate vampire art installations that the other Houses find deeply offensive — depicting sacred rites, mocking traditions, exposing secrets through "fiction." You claim it's all art. Nobody believes you. Maybe they shouldn't.</p>
+  <div class="secrets-box">
+    <div class="section-label">🗝️ Your Secrets — Guard These With Your Unlife</div>
+    <p class="secret-item">Your latest art piece — unveiled the night Vasilis died — contained details about the murder method before it happened. How did you know? People will ask. Your answer had better be convincing.</p>
+    <p class="secret-item">Beneath the chaos, you're struggling. Deeply. You use art and provocation as a shield. You've been considering walking into the sun. No one knows this.</p>
+  </div>
+  <div class="section-label">🕸️ Relationships</div>
+  <p class="relationship">• <strong>The Purist (Strigoi)</strong> — They want you destroyed. Your art mocked Strigoi bloodline records. You're proud of that piece.</p>
+  <p class="relationship">• <strong>The Flame (Camazotz)</strong> — They secretly admire your work. A rare soul who sees the truth in the provocation.</p>
+  <p class="relationship">• <strong>The Heir (Strigoi)</strong> — You had a brief, passionate, and very secret affair. It ended in mutual destruction. Neither of you has recovered.</p>
+  <div class="costume-box">
+    <div class="section-label">🎭 Costume Guidance</div>
+    <p>Avant-garde chaos. The most dramatic outfit in the room. Couture or deconstructed masterpiece — art IS the costume. Make people uncomfortable. Make them stare.</p>
+  </div>
+  <div class="dossier-footer">
+    <p>The Crimson Wake · Halloween 2027 · Destroy After Reading</p>
+  </div>
+</div>
+
+<!-- V1 -->
+<div class="dossier house-vetala" data-house="vetala">
+  <div class="seal">❄️</div>
+  <span class="corner corner-tl">◊</span><span class="corner corner-tr">◊</span>
+  <span class="corner corner-bl">◊</span><span class="corner corner-br">◊</span>
+  <div class="dossier-header">
+    <div class="house-icon">❄️</div>
+    <div class="house-name">House Vetala — The Unravelers</div>
+    <div class="house-motto">"There are no limits. Only those we haven't broken yet."</div>
+    <div class="char-title">The Alchemist</div>
+    <div class="char-names">Choose your name: Kasem · Kira · or your own</div>
+    <div class="char-rank">First Seeker of the Unravelers</div>
+  </div>
+  <div class="divider">· · ◊ · ·</div>
+  <div class="section-label">Your Story</div>
+  <p class="backstory">You lead House Vetala through sheer obsession. 350 years pursuing the boundaries of vampiric power — transformation, enhancement, transcendence. You want to evolve the species. Brilliant, intense, and utterly indifferent to politics. Which makes you dangerous: you have no allegiances to exploit. You have only your work. And someone took it from you.</p>
+  <div class="secrets-box">
+    <div class="section-label">🗝️ Your Secrets — Guard These With Your Unlife</div>
+    <p class="secret-item">The experiment Vasilis confiscated — creating vampires without a sire — was almost complete. If it works, the entire House system collapses. No more bloodlines, no more hierarchy. You want it back at any cost.</p>
+    <p class="secret-item">You were the former lover of the Heir (Strigoi). It ended 50 years ago. You still have feelings. You hate yourself for it.</p>
+  </div>
+  <div class="section-label">🕸️ Relationships</div>
+  <p class="relationship">• <strong>The Heir (Strigoi)</strong> — Your ex. 50 years of unresolved tension. You can't be in the same room without the air changing.</p>
+  <p class="relationship">• <strong>The Elder Fang (Camazotz)</strong> — Your secret collaborator on forbidden experiments. Sacred and profane, merged.</p>
+  <p class="relationship">• <strong>The Weaver (Obayifo)</strong> — Two brilliant minds circling each other. Mutual respect. Mutual suspicion.</p>
+  <div class="costume-box">
+    <div class="section-label">🎭 Costume Guidance</div>
+    <p>Mad scientist meets dark mystic. Lab coat elements mixed with occult accessories — vials, strange jewelry. You look like you haven't slept in 200 years. You haven't.</p>
+  </div>
+  <div class="dossier-footer">
+    <p>The Crimson Wake · Halloween 2027 · Destroy After Reading</p>
+  </div>
+</div>
+
+<!-- V2 - THE KILLER -->
+<div class="dossier house-vetala" data-house="vetala">
+  <div class="seal">❄️</div>
+  <span class="corner corner-tl">◊</span><span class="corner corner-tr">◊</span>
+  <span class="corner corner-bl">◊</span><span class="corner corner-br">◊</span>
+  <div class="dossier-header">
+    <div class="house-icon">❄️</div>
+    <div class="house-name">House Vetala — The Unravelers</div>
+    <div class="house-motto">"There are no limits. Only those we haven't broken yet."</div>
+    <div class="char-title">The Vivisectionist</div>
+    <div class="char-names">Choose your name: Niran · Neve · or your own</div>
+    <div class="char-rank">The Blade Scholar</div>
+  </div>
+  <div class="divider">· · ◊ · ·</div>
+  <div class="section-label">Your Story</div>
+  <p class="backstory">You study vampire biology through... hands-on methods. You're the one who figured out that obsidian can permanently kill vampires. You mapped the vulnerabilities of each bloodline. This knowledge makes you the most feared researcher alive — and the most valuable target. Everyone wants you. Everyone fears you. As it should be.</p>
+  <div class="secrets-box">
+    <div class="section-label">🗝️ Your Secrets — Guard These With Your Unlife</div>
+    <p class="secret-item">⚠️ <strong>YOU ARE THE KILLER.</strong> You created the obsidian weapons — including the one that killed Vasilis. You made three shards. You told everyone the third was stolen. It wasn't. You used it yourself.</p>
+    <p class="secret-item">You killed Vasilis because he confiscated the sire-free creation research and threatened to destroy centuries of Vetala work. You didn't want to do it. You felt there was no other choice. The work must survive. It must. That's what you tell yourself.</p>
+    <p class="secret-item"><strong>Your cover story:</strong> The third shard was stolen from your lab six months ago. You reported it. You've been "trying to track it down." Stick to this story. Be helpful. Offer your expertise on the murder weapon. Hide in plain sight.</p>
+  </div>
+  <div class="section-label">🕸️ Relationships</div>
+  <p class="relationship">• <strong>The Collector (Jiang)</strong> — You trade dangerous items. They own the second shard. This is both useful and terrifying.</p>
+  <p class="relationship">• <strong>The Archivist (Strigoi)</strong> — A quiet research ally. They don't know the full scope of your work. Keep it that way.</p>
+  <p class="relationship">• <strong>Everyone</strong> — Every House wants you dead or under their control. You know this. Act accordingly.</p>
+  <div class="costume-box">
+    <div class="section-label">🎭 Costume Guidance</div>
+    <p>Clinical darkness. Precise, sharp, sterile. Dark surgical elements — gloves, tools as accessories. Unsettling elegance. You are the scalpel in a room full of hammers.</p>
+  </div>
+  <div class="dossier-footer">
+    <p>The Crimson Wake · Halloween 2027 · Destroy After Reading</p>
+  </div>
+</div>
+
+<!-- V3 -->
+<div class="dossier house-vetala" data-house="vetala">
+  <div class="seal">❄️</div>
+  <span class="corner corner-tl">◊</span><span class="corner corner-tr">◊</span>
+  <span class="corner corner-bl">◊</span><span class="corner corner-br">◊</span>
+  <div class="dossier-header">
+    <div class="house-icon">❄️</div>
+    <div class="house-name">House Vetala — The Unravelers</div>
+    <div class="house-motto">"There are no limits. Only those we haven't broken yet."</div>
+    <div class="char-title">The Theorist</div>
+    <div class="char-names">Choose your name: Maren · Micah · or your own</div>
+    <div class="char-rank">The Dreamer of the Unravelers</div>
+  </div>
+  <div class="divider">· · ◊ · ·</div>
+  <div class="section-label">Your Story</div>
+  <p class="backstory">Where the Alchemist experiments and the Vivisectionist dissects, you think. You are the philosopher of Vetala — always asking "but what if?" Your ideas range from brilliant to terrifying. Other vampires dismiss you as a dreamer. You've been right more often than anyone's comfortable with. One day they'll understand. Maybe tonight.</p>
+  <div class="secrets-box">
+    <div class="section-label">🗝️ Your Secrets — Guard These With Your Unlife</div>
+    <p class="secret-item">You've developed a theory that Vasilis was not actually a vampire — but something older, something that vampires evolved from. If true, his death isn't just a murder. It's the end of an era of evolution.</p>
+    <p class="secret-item">Since Vasilis died, you've been having visions. Flashes of things you shouldn't know. Either you're developing a new power... or you're losing your mind. You're not sure which possibility frightens you more.</p>
+  </div>
+  <div class="section-label">🕸️ Relationships</div>
+  <p class="relationship">• <strong>The Historian (Obayifo)</strong> — You've exchanged letters for decades, comparing notes on vampire origins. They may hold the key to your theory.</p>
+  <p class="relationship">• <strong>The Elder Fang (Camazotz)</strong> — Their rituals fascinate you. To them it's sacred. To you it's data. This tension defines your interactions.</p>
+  <p class="relationship">• <strong>The Ghost (Jiang)</strong> — They came to you for help before disappearing 50 years ago. You've always wondered what happened.</p>
+  <div class="costume-box">
+    <div class="section-label">🎭 Costume Guidance</div>
+    <p>Absent-minded mysticism. Layers that don't quite match, pockets full of notes, the look of someone whose mind is always somewhere else. Beautifully disheveled genius.</p>
+  </div>
+  <div class="dossier-footer">
+    <p>The Crimson Wake · Halloween 2027 · Destroy After Reading</p>
+  </div>
+</div>
+
+<!-- V4 - THE TRAITOR -->
+<div class="dossier house-vetala" data-house="vetala">
+  <div class="seal">❄️</div>
+  <span class="corner corner-tl">◊</span><span class="corner corner-tr">◊</span>
+  <span class="corner corner-bl">◊</span><span class="corner corner-br">◊</span>
+  <div class="dossier-header">
+    <div class="house-icon">❄️</div>
+    <div class="house-name">House Vetala — The Unravelers</div>
+    <div class="house-motto">"There are no limits. Only those we haven't broken yet."</div>
+    <div class="char-title">The Recruit</div>
+    <div class="char-names">Choose your name: Idris · Io · or your own</div>
+    <div class="char-rank">The Newest Eye</div>
+  </div>
+  <div class="divider">· · ◊ · ·</div>
+  <div class="section-label">Your Story</div>
+  <p class="backstory">Turned only 5 years ago. The newest vampire in the city. You were a medical student who caught Vetala's attention through brilliant research on blood diseases. You're still adjusting to immortality. Still processing the horror of what you've become. You are the most "human" person in this room. That's both your weakness and your strength.</p>
+  <div class="secrets-box">
+    <div class="section-label">🗝️ Your Secrets — Guard These With Your Unlife</div>
+    <p class="secret-item">⚠️ <strong>YOU ARE THE UNWITTING TRAITOR.</strong> Your old med school friend has been asking questions about your "new life" — what you do, who you know, how vampire society works. You thought they were just curious and supportive. You just realized they're connected to a hunter network. Everything you've told them has been intelligence. You're terrified and don't know what to do.</p>
+    <p class="secret-item">You still drink coffee every morning. It does absolutely nothing for you. It's a comfort thing. A tiny thread connecting you to who you used to be.</p>
+  </div>
+  <div class="section-label">🕸️ Relationships</div>
+  <p class="relationship">• <strong>The Alchemist (Vetala)</strong> — Your sire. You're simultaneously grateful they gave you immortality and resentful they took your human life.</p>
+  <p class="relationship">• <strong>The Upstart (Obayifo) & The Convert (Camazotz)</strong> — The "new vampire" club. You understand each other's struggles in a way the ancients never will.</p>
+  <p class="relationship">• <strong>House Vetala</strong> — They see you as either a promising recruit or a security risk. Tonight might decide which.</p>
+  <div class="costume-box">
+    <div class="section-label">🎭 Costume Guidance</div>
+    <p>Someone who hasn't quite figured out how to be a vampire yet. A nice outfit that's almost right but slightly off. You're a human trying to dress for a vampire ball — and it shows, endearingly.</p>
+  </div>
+  <div class="dossier-footer">
+    <p>The Crimson Wake · Halloween 2027 · Destroy After Reading</p>
+  </div>
+</div>
+
+<!-- V5 -->
+<div class="dossier house-vetala" data-house="vetala">
+  <div class="seal">❄️</div>
+  <span class="corner corner-tl">◊</span><span class="corner corner-tr">◊</span>
+  <span class="corner corner-bl">◊</span><span class="corner corner-br">◊</span>
+  <div class="dossier-header">
+    <div class="house-icon">❄️</div>
+    <div class="house-name">House Vetala — The Unravelers</div>
+    <div class="house-motto">"There are no limits. Only those we haven't broken yet."</div>
+    <div class="char-title">The Warden</div>
+    <div class="char-names">Choose your name: Orla · Osiris · or your own</div>
+    <div class="char-rank">Keeper of the Sealed Vault</div>
+  </div>
+  <div class="divider">· · ◊ · ·</div>
+  <div class="section-label">Your Story</div>
+  <p class="backstory">You guard Vetala's most dangerous experiments and confiscated items. You decide what's too dangerous to exist. Patient, methodical, and morally conflicted. You have destroyed things that could have changed the world because the risk was too great. You carry that weight every night. Someone has to.</p>
+  <div class="secrets-box">
+    <div class="section-label">🗝️ Your Secrets — Guard These With Your Unlife</div>
+    <p class="secret-item">Vasilis gave you something to guard in secret — an item that none of the Houses know about. It's been in the vault for 100 years. You don't know what it does. Only that Vasilis said: "Open it when I die." The time has come.</p>
+    <p class="secret-item">You've been destroying some of the Alchemist's research without their knowledge. Things you deemed too dangerous to exist. If the Alchemist discovers this, your relationship — and possibly your existence — is over.</p>
+  </div>
+  <div class="section-label">🕸️ Relationships</div>
+  <p class="relationship">• <strong>The Alchemist (Vetala)</strong> — You're loyal to them but increasingly frightened by their ambition. Where does it end?</p>
+  <p class="relationship">• <strong>The Sentinel (Camazotz)</strong> — A kindred spirit. Both guardians. Both carrying burdens no one else sees.</p>
+  <p class="relationship">• <strong>The Weaver (Obayifo)</strong> — They've been trying to get into your vault for years. You are the reason they've failed. This gives you quiet satisfaction.</p>
+  <div class="costume-box">
+    <div class="section-label">🎭 Costume Guidance</div>
+    <p>The gatekeeper. Heavy keys worn as jewelry, dark robes or coat, the look of someone who guards things that should stay locked away. Somber authority. You carry the weight of dangerous knowledge.</p>
+  </div>
+  <div class="dossier-footer">
+    <p>The Crimson Wake · Halloween 2027 · Destroy After Reading</p>
+  </div>
+</div>
+
+<script>
+function filterHouse() {
+  const val = document.getElementById('filter').value;
+  document.querySelectorAll('.dossier').forEach(d => {
+    d.style.display = (val === 'all' || d.dataset.house === val) ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>
