@@ -4,11 +4,16 @@
 
 // ─── Curtain ───
 document.body.classList.add('locked');
-document.getElementById('enter-btn').addEventListener('click', () => {
-  document.getElementById('curtain').classList.add('open');
+function openCurtain() {
+  const c = document.getElementById('curtain');
+  if (c.classList.contains('open')) return;
+  c.classList.add('open');
   document.body.classList.remove('locked');
-  setTimeout(() => document.getElementById('curtain').classList.add('gone'), 2500);
-});
+  setTimeout(() => c.classList.add('gone'), 2500);
+}
+document.getElementById('enter-btn').addEventListener('click', openCurtain);
+document.getElementById('enter-btn').addEventListener('touchend', function(e) { e.preventDefault(); openCurtain(); });
+document.getElementById('curtain').addEventListener('click', openCurtain);
 
 // ─── Particles ───
 (function() {
