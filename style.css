@@ -98,7 +98,7 @@ body {
 }
 .curtain-btn:hover {
   background: var(--crimson); color: var(--bone);
-  box-shadow: 0 0 30px var(--red-glow);
+  animation: heartbeat 1.2s ease-in-out infinite;
 }
 
 body.locked { overflow: hidden; }
@@ -402,7 +402,16 @@ strong { color: var(--red); font-weight: 600; }
 }
 .btn:hover {
   background: var(--crimson); color: var(--bone);
-  box-shadow: 0 0 30px var(--red-glow);
+  animation: heartbeat 1.2s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%   { box-shadow: 0 0 10px rgba(181, 37, 37, 0.3); }
+  14%  { box-shadow: 0 0 25px rgba(181, 37, 37, 0.7); }
+  28%  { box-shadow: 0 0 10px rgba(181, 37, 37, 0.3); }
+  42%  { box-shadow: 0 0 20px rgba(181, 37, 37, 0.6); }
+  70%  { box-shadow: 0 0 8px rgba(181, 37, 37, 0.2); }
+  100% { box-shadow: 0 0 10px rgba(181, 37, 37, 0.3); }
 }
 
 /* Quiz */
