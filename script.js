@@ -70,8 +70,7 @@ const HOUSES = {
   strigoi: { icon: '🦇', name: 'House Strigoi', desc: 'You are tradition. Authority. The ancient ways run in your veins. Welcome to the oldest bloodline.' },
   obayifo: { icon: '🌑', name: 'House Obayifo', desc: 'You see what others miss. The shadows are yours — and so are everyone\'s secrets.' },
   camazotz: { icon: '🦅', name: 'House Camazotz', desc: 'You are fire and devotion. The blood rites are sacred, and you guard them with your life.' },
-  jiang: { icon: '🌙', name: 'House Jiang', desc: 'You refuse cages. Art, knowledge, connection — the future belongs to those who imagine it.' },
-  vetala: { icon: '❄️', name: 'House Vetala', desc: 'Every boundary is a challenge. Every limit a cage to break. The truth is out there — you will find it.' }
+  jiang: { icon: '🌙', name: 'House Jiang', desc: 'You refuse cages. Art, knowledge, connection — the future belongs to those who imagine it.' }
 };
 
 // ─── RSVP ───
@@ -93,7 +92,7 @@ document.getElementById('rsvp-form').addEventListener('submit', function(e) {
     ans[`q${i}`] = sel.value;
   }
 
-  const sc = { strigoi:0, obayifo:0, camazotz:0, jiang:0, vetala:0 };
+  const sc = { strigoi:0, obayifo:0, camazotz:0, jiang:0 };
   Object.values(ans).forEach(v => sc[v]++);
   const ranked = Object.entries(sc).sort((a,b) => b[1] - a[1]);
   const top = ranked[0][0];
