@@ -116,33 +116,64 @@ body.locked { overflow: hidden; }
 }
 .skip-btn:hover { opacity: 0.8; color: var(--ash); }
 
-/* Stained glass window borders */
+/* Stained glass window borders — landscape/desktop only */
 .window-border {
   position: fixed;
-  top: 0; bottom: 0;
-  width: 80px;
+  top: 0;
+  width: 100px;
+  height: 100vh;
   z-index: 2;
   pointer-events: none;
-  background-size: 100% auto;
-  background-repeat: repeat-y;
-  background-position: center top;
-  opacity: 0.15;
-  transition: opacity 0.3s;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: none;
+}
+/* Glow behind the windows */
+.window-border::before {
+  content: '';
+  position: absolute;
+  top: 5%; bottom: 5%;
+  width: 120%;
+  background: radial-gradient(ellipse at center, rgba(139, 26, 26, 0.35) 0%, rgba(139, 26, 26, 0.1) 40%, transparent 70%);
+  z-index: -1;
 }
 .window-left {
   left: 0;
   background-image: url('img/window-left.png');
 }
+.window-left::before { left: -10%; }
 .window-right {
   right: 0;
   background-image: url('img/window-right.png');
 }
+.window-right::before { right: -10%; }
 
-@media (max-width: 900px) {
-  .window-border { width: 40px; opacity: 0.1; }
+/* Only show on landscape desktop */
+@media (min-width: 1024px) and (orientation: landscape) {
+  .window-border { display: block; }
 }
-@media (max-width: 600px) {
-  .window-border { display: none; }
+@media (min-width: 1400px) {
+  .window-border { width: 120px; }
+}
+
+/* Fog overlay effect */
+.fog {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 20% 80%, rgba(139, 26, 26, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(139, 26, 26, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(10, 4, 6, 0.4) 0%, transparent 60%);
+  animation: fog-drift 20s ease-in-out infinite alternate;
+}
+@keyframes fog-drift {
+  0% { opacity: 0.6; }
+  50% { opacity: 0.9; }
+  100% { opacity: 0.7; }
 }
 
 /* Site starts hidden, fades in during curtain reveal */
