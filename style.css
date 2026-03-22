@@ -103,6 +103,48 @@ body {
 
 body.locked { overflow: hidden; }
 
+/* Skip intro button */
+.skip-btn {
+  position: absolute;
+  bottom: 1.5rem; right: 1.5rem;
+  background: none; border: none;
+  color: var(--smoke); font-family: 'Cinzel', serif;
+  font-size: 0.65rem; letter-spacing: 0.1em;
+  cursor: pointer; opacity: 0.4;
+  transition: opacity 0.3s;
+  z-index: 2;
+}
+.skip-btn:hover { opacity: 0.8; color: var(--ash); }
+
+/* Stained glass window borders */
+.window-border {
+  position: fixed;
+  top: 0; bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+  background-size: 100% auto;
+  background-repeat: repeat-y;
+  background-position: center top;
+  opacity: 0.15;
+  transition: opacity 0.3s;
+}
+.window-left {
+  left: 0;
+  background-image: url('img/window-left.png');
+}
+.window-right {
+  right: 0;
+  background-image: url('img/window-right.png');
+}
+
+@media (max-width: 900px) {
+  .window-border { width: 40px; opacity: 0.1; }
+}
+@media (max-width: 600px) {
+  .window-border { display: none; }
+}
+
 /* Site starts hidden, fades in during curtain reveal */
 #site { opacity: 0; transition: opacity 0.3s ease; }
 

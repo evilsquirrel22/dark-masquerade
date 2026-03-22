@@ -492,6 +492,16 @@
   enterBtn.addEventListener('click', triggerOpen);
   enterBtn.addEventListener('touchend', (e) => { e.preventDefault(); triggerOpen(); });
 
+  // Skip intro — instant jump
+  const skipBtn = document.getElementById('skip-btn');
+  function skipIntro() {
+    overlay.classList.add('gone');
+    document.body.classList.remove('locked');
+    site.style.opacity = '1';
+  }
+  skipBtn.addEventListener('click', skipIntro);
+  skipBtn.addEventListener('touchend', (e) => { e.preventDefault(); skipIntro(); });
+
   // ─── Resize ───
   window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
