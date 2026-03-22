@@ -247,11 +247,27 @@ strong { color: var(--red); font-weight: 600; }
   transform: translateY(-3px);
   box-shadow: 0 8px 30px rgba(0,0,0,0.4);
 }
+.house-img {
+  width: 100%; height: 180px;
+  background-size: cover; background-position: center top;
+  border-radius: 2px 2px 0 0;
+  margin: -2rem -1.5rem 1rem -1.5rem;
+  width: calc(100% + 3rem);
+  opacity: 0.85;
+  transition: opacity 0.3s;
+}
+.house-card:hover .house-img { opacity: 1; }
 .house-icon { font-size: 2rem; margin-bottom: 0.8rem; }
 .house-card h3 {
   font-family: 'Cinzel', serif;
   font-size: 1rem; letter-spacing: 0.1em;
   color: var(--bone); margin-bottom: 0.3rem;
+}
+.house-pronounce {
+  font-size: 0.7rem; color: var(--smoke);
+  font-style: italic; letter-spacing: 0.08em;
+  margin-bottom: 0.2rem !important;
+  font-family: 'Cormorant Garamond', serif;
 }
 .house-origin {
   font-size: 0.75rem; color: var(--crimson);
