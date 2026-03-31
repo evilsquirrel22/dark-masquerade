@@ -104,9 +104,21 @@ document.getElementById('rsvp-form').addEventListener('submit', function(e) {
     plusone: document.getElementById('f-plusone').value.trim(),
     dietary: document.getElementById('f-dietary').value.trim(),
     quizScores: sc, topHouse: top, secondHouse: ranked[1][0],
-    ts: new Date().toISOString()
   };
-  console.log('RSVP:', data);
+
+  // Submit to backend
+  const RSVP_URL = 'RSVP_ENDPOINT_PLACEHOLDER';
+  if (RSVP_URL && !RSVP_URL.includes('PLACEHOLDER')) {
+    fetch(RSVP_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).then(r => r.json()).then(res => {
+      if (res.error === 'already_registered') {
+        alert('It looks like you\'ve already RSVP\'d with this email! Check your inbox for your confirmation.');
+      }
+    }).catch(() => {}); // fail silently — result still shown
+  }
 
   const h = HOUSES[top];
   document.getElementById('r-icon').textContent = h.icon;
